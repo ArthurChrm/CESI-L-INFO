@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRelationsUtilisateursTable extends Migration
+class CreatePromotionsUtilisateursTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateRelationsUtilisateursTable extends Migration
      */
     public function up()
     {
-        Schema::create('relations_utilisateurs', function (Blueprint $table) {
-            $table->bigInteger('id_promotion');
+        Schema::create('promotions_utilisateurs', function (Blueprint $table) {
             $table->bigInteger('id_user');
+            $table->bigInteger('id_promotion');
             $table->timestamps();
 
+            $table->foreign('id_user')->references('id')->on('user');
             $table->foreign('id_promotion')->references('id')->on('promotions');
-            $table->foreign('id_user')->references('id')->on('users');
         });
     }
 
@@ -30,10 +30,10 @@ class CreateRelationsUtilisateursTable extends Migration
      */
     public function down()
     {
-        Schema::table('relations_utilisateurs',function(Blueprint $table){
-            $table->dropForeign('id_promotion');
+        Schema::table('promotions_utilisateurs',function(Blueprint $table){
             $table->dropForeign('id_user');
+            $table->dropForeign('id_promotion');
         });
-        Schema::dropIfExists('relations_utilisateurs');
+        Schema::dropIfExists('promotions_utilisateurs');
     }
 }
