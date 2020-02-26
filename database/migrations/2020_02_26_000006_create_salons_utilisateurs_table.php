@@ -14,8 +14,8 @@ class CreateSalonsUtilisateursTable extends Migration
     public function up()
     {
         Schema::create('salons_utilisateurs', function (Blueprint $table) {
-            $table->bigInteger('id_user');
-            $table->bigInteger('id_salon');
+            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_salon');
             $table->timestamps();
 
             $table->foreign('id_user')->references('id')->on('users');

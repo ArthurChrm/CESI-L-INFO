@@ -14,11 +14,11 @@ class CreatePromotionsUtilisateursTable extends Migration
     public function up()
     {
         Schema::create('promotions_utilisateurs', function (Blueprint $table) {
-            $table->bigInteger('id_user');
-            $table->bigInteger('id_promotion');
+            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_promotion');
             $table->timestamps();
 
-            $table->foreign('id_user')->references('id')->on('user');
+            $table->foreign('id_user')->references('id')->on('users');
             $table->foreign('id_promotion')->references('id')->on('promotions');
         });
     }

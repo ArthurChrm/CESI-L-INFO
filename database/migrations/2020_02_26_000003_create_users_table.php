@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            $table->bigInteger('id_rang');
+            $table->unsignedBigInteger('id_rang');
             $table->foreign('id_rang')->references('id')->on('rangs');
         });
     }
