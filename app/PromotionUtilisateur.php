@@ -3,11 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+class PromotionUtilisateur extends Model
 {
-    use Notifiable;
+
 
 
     /**
@@ -15,21 +14,21 @@ class User extends Model
      *
      * @var string
      */
-    protected $table = 'users';
+    protected $table = 'promotions_utilisateurs';
 
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'first_name', 'email', 'birth_date', 'address', 'phone_number', 'id_rang'];
+    protected $fillable = ['id_user', 'id_promotion'];
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = [];
 
     /**
      * The attributes that should be casted to native types.
@@ -43,10 +42,13 @@ class User extends Model
      *
      * @var array
      */
-    protected $dates = ['email_verified_at', 'birth_date', 'created_at', 'updated_at'];
+    protected $dates = ['created_at', 'updated_at'];
 
-    public function rang(){
-        return $this->hasOne('App\Rang');
+    public function promotion(){
+        return $this->hasOne('App\Promotion');
     }
 
+    public function user(){
+        return $this->hasOne('App\User');
+    }
 }
