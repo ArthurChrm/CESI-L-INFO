@@ -44,4 +44,8 @@ class Event extends Model
      */
     protected $dates = ['date', 'created_at', 'updated_at'];
 
+    public function message(){
+        return $this->hasOne('App\Message');
+    }
+
 }

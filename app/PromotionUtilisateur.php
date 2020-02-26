@@ -44,4 +44,11 @@ class PromotionUtilisateur extends Model
      */
     protected $dates = ['created_at', 'updated_at'];
 
+    public function promotion(){
+        return $this->hasOne('App\Promotion');
+    }
+
+    public function user(){
+        return $this->hasOne('App\User');
+    }
 }

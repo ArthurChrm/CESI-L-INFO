@@ -44,4 +44,12 @@ class Message extends Model
      */
     protected $dates = ['created_at', 'updated_at'];
 
+    public function salon(){
+        return $this->hasOne('App\Salon');
+    }
+
+    public function sender(){
+        return $this->hasOne('App\User');
+    }
+
 }

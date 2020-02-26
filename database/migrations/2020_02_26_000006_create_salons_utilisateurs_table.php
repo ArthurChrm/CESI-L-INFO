@@ -14,12 +14,12 @@ class CreateSalonsUtilisateursTable extends Migration
     public function up()
     {
         Schema::create('salons_utilisateurs', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_user');
-            $table->unsignedBigInteger('id_salon');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('salon_id');
             $table->timestamps();
 
-            $table->foreign('id_user')->references('id')->on('users');
-            $table->foreign('id_salon')->references('id')->on('salons');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('salon_id')->references('id')->on('salons');
         });
     }
 
@@ -31,8 +31,8 @@ class CreateSalonsUtilisateursTable extends Migration
     public function down()
     {
         Schema::table('salons_utilisateurs',function(Blueprint $table){
-            $table->dropForeign('id_user');
-            $table->dropForeign('id_salon');
+            $table->dropForeign('user_id');
+            $table->dropForeign('salon_id');
         });
         Schema::dropIfExists('salons_utilisateurs');
     }

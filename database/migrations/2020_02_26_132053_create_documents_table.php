@@ -18,8 +18,8 @@ class CreateDocumentsTable extends Migration
             $table->string('link');
             $table->timestamps();
 
-            $table->unsignedBigInteger('id_message');
-            $table->foreign('id_message')->references('id')->on('messages');
+            $table->unsignedBigInteger('message_id');
+            $table->foreign('message_id')->references('id')->on('messages');
         });
     }
 
@@ -31,7 +31,7 @@ class CreateDocumentsTable extends Migration
     public function down()
     {
         Schema::table('documents',function (Blueprint $table){
-            $table->dropForeign('id_message');
+            $table->dropForeign('message_id');
         });
         Schema::dropIfExists('documents');
     }

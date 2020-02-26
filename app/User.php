@@ -45,4 +45,8 @@ class User extends Model
      */
     protected $dates = ['email_verified_at', 'birth_date', 'created_at', 'updated_at'];
 
+    public function rang(){
+        return $this->hasOne('App\Rang');
+    }
+
 }

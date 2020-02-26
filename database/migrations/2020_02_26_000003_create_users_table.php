@@ -26,8 +26,8 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            $table->unsignedBigInteger('id_rang');
-            $table->foreign('id_rang')->references('id')->on('rangs');
+            $table->unsignedBigInteger('rang_id');
+            $table->foreign('rang_id')->references('id')->on('rangs');
         });
     }
 
@@ -39,7 +39,7 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::table('users',function (Blueprint $table){
-            $table->dropForeign('id_rang');
+            $table->dropForeign('rang_id');
         });
         Schema::dropIfExists('users');
     }

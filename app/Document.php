@@ -44,4 +44,8 @@ class Document extends Model
      */
     protected $dates = ['created_at', 'updated_at'];
 
+    public function message(){
+        return $this->hasOne('App\Message');
+    }
+
 }

@@ -20,8 +20,8 @@ class CreateEventsTable extends Migration
             $table->text('description');
             $table->timestamps();
 
-            $table->unsignedBigInteger('id_message');
-            $table->foreign('id_message')->references('id')->on('messages');
+            $table->unsignedBigInteger('message_id');
+            $table->foreign('message_id')->references('id')->on('messages');
         });
     }
 
@@ -33,7 +33,7 @@ class CreateEventsTable extends Migration
     public function down()
     {
         Schema::table('events',function(Blueprint $table){
-            $table->dropForeign('id_message');
+            $table->dropForeign('message_id');
         });
         Schema::dropIfExists('events');
     }

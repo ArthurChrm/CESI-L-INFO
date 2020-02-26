@@ -14,12 +14,12 @@ class CreatePromotionsUtilisateursTable extends Migration
     public function up()
     {
         Schema::create('promotions_utilisateurs', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_user');
-            $table->unsignedBigInteger('id_promotion');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('promotion_id');
             $table->timestamps();
 
-            $table->foreign('id_user')->references('id')->on('users');
-            $table->foreign('id_promotion')->references('id')->on('promotions');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('promotion_id')->references('id')->on('promotions');
         });
     }
 
@@ -31,8 +31,8 @@ class CreatePromotionsUtilisateursTable extends Migration
     public function down()
     {
         Schema::table('promotions_utilisateurs',function(Blueprint $table){
-            $table->dropForeign('id_user');
-            $table->dropForeign('id_promotion');
+            $table->dropForeign('user_id');
+            $table->dropForeign('promotion_id');
         });
         Schema::dropIfExists('promotions_utilisateurs');
     }
