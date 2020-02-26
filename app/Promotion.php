@@ -4,24 +4,24 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Files extends Model  
+class Promotion extends Model
 {
 
-    
+
 
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'files';
+    protected $table = 'promotions';
 
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $fillable = ['link', 'created_at', 'updated_at', 'id_message'];
+    protected $fillable = ['created_at', 'updated_at', 'promotion_name'];
 
     /**
      * The attributes excluded from the model's JSON form.

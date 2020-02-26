@@ -4,24 +4,24 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PromotionsUtilisateurs extends Model  
+class Event extends Model
 {
 
-    
+
 
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'promotions_utilisateurs';
+    protected $table = 'events';
 
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $fillable = ['id_user', 'id_promotion', 'created_at', 'updated_at'];
+    protected $fillable = ['date', 'name', 'description', 'id_message'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -42,6 +42,6 @@ class PromotionsUtilisateurs extends Model
      *
      * @var array
      */
-    protected $dates = ['created_at', 'updated_at'];
+    protected $dates = ['date', 'created_at', 'updated_at'];
 
 }

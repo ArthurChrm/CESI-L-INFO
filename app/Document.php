@@ -4,24 +4,24 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PasswordResets extends Model  
+class Document extends Model
 {
 
-    
+
 
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'password_resets';
+    protected $table = 'documents';
 
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $fillable = ['email', 'token', 'created_at'];
+    protected $fillable = ['link', 'id_message'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -42,6 +42,6 @@ class PasswordResets extends Model
      *
      * @var array
      */
-    protected $dates = ['created_at'];
+    protected $dates = ['created_at', 'updated_at'];
 
 }

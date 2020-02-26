@@ -4,24 +4,24 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Messages extends Model  
+class Rang extends Model
 {
 
-    
+
 
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'messages';
+    protected $table = 'rangs';
 
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $fillable = ['id_recipient', 'content', 'created_at', 'updated_at', 'id_user', 'id_salon'];
+    protected $fillable = ['rang_name'];
 
     /**
      * The attributes excluded from the model's JSON form.
