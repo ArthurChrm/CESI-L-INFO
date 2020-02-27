@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Validator;
 use Request;
 use App\Document;
+use Storage;
 
 class UploadFileController extends Controller
 {
@@ -41,18 +42,21 @@ class UploadFileController extends Controller
         if ($upload_success) {            
             $document = new Document();
             $document->link = $destinationPath.'/'.$fileName;
+            // $document->link = $fileName;
             $document->message_id = 2;
             $document->save();
             return 'Upload succesful !';
         }
     }
 
-    public function delete($id){
-        $result = \DB::table('Documents')->where('id', $id)->delete();
-        if($result){
-            return 'Evenement supprimé';
-        }{
-            return 'Impossible de supprimer l\'évènement, l\'id est-il correct ?';
+    public function delete(Document $document){
+
+        \File::delete($document->link);
+
+        if($document->delete()){
+            return 'Suppression terminé avec succés';
+        }else{
+            return 'echec de la suppression';
         }
     }
 }
