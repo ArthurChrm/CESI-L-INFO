@@ -10,6 +10,12 @@ class MessageController extends Controller
     public function index()
     {
         $messages = \DB::table('messages')->get();
+
+        foreach ($messages as $msg) {
+            $fichiers = \DB::table('documents')->where('message_id', $msg->id)->get();
+            $msg->fichiers = $fichiers;
+        }
+
         return view("message", compact('messages'));
     }
 
