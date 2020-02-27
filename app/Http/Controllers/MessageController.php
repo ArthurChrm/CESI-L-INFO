@@ -21,7 +21,8 @@ class MessageController extends Controller
 
     public function edit()
     {
-        return view("message.create");
+        $salons = \DB::table("salons")->get();
+        return view("message.create", compact('salons'));
     }
 
     public function store()
@@ -29,10 +30,10 @@ class MessageController extends Controller
         $message = new Message();
         $message->id_recipient = 1;
         $message->user_id = 1;
-        $message->salon_id = 1;
+        $message->salon_id = request()->Salon;
         $message->content = request()->message;
         $message->save();
 
-        return "done !";
+        return redirect("/message");
     }
 }
