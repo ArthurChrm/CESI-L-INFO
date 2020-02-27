@@ -46,4 +46,13 @@ class UploadFileController extends Controller
             return 'Upload succesful !';
         }
     }
+
+    public function delete($id){
+        $result = \DB::table('Documents')->where('id', $id)->delete();
+        if($result){
+            return 'Evenement supprimé';
+        }{
+            return 'Impossible de supprimer l\'évènement, l\'id est-il correct ?';
+        }
+    }
 }

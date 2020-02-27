@@ -25,4 +25,7 @@ Route::get('/message/salon/{salon}', "MessageController@index_salon")->name("mes
 
 Route::get('/upload', 'UploadFileController@index');
 Route::post('upload/add', 'UploadFileController@uploadFiles');
+Route::get('upload/remove/{id}', 'UploadFileController@delete')->where('id', '(.*)');
+
+Route::get('/evenement', 'EvenementController@index');
 
