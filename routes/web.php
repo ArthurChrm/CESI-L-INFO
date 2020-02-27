@@ -27,5 +27,7 @@ Route::get('/upload', 'UploadFileController@index');
 Route::post('upload/add', 'UploadFileController@uploadFiles');
 Route::get('upload/remove/{id}', 'UploadFileController@delete')->where('id', '(.*)');
 
-Route::get('/evenement', 'EvenementController@index');
+Route::GET('/evenement', 'EvenementController@index');
+Route::GET('/evenement/create', 'EvenementController@edit');
+Route::POST('/evenement/add', 'EvenementController@store');
 
