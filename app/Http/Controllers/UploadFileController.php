@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Validator;
 use Request;
+use App\Document;
 
 class UploadFileController extends Controller
 {
@@ -37,7 +38,11 @@ class UploadFileController extends Controller
         $fileName = rand(11111, 99999) . '.' . $extension;
         $upload_success = $file->move($destinationPath, $fileName);
 
-        if ($upload_success) {
+        if ($upload_success) {            
+            $document = new Document();
+            $document->link = $destinationPath.'/'.$fileName;
+            $document->message_id = 2;
+            $document->save();
             return 'Upload succesful !';
         }
     }
