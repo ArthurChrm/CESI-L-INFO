@@ -5,7 +5,6 @@
             app
             clipped-left
             dark
-
         >
             <v-app-bar-nav-icon @click="openCloseNav">
                 <v-icon>fa-bars</v-icon>
@@ -16,13 +15,12 @@
         <v-navigation-drawer app
                              clipped
                              v-model="drawer"
-                             width="33%"
+                             width="auto"
         >
             <v-row class="fill-height" no-gutters>
                 <v-navigation-drawer
                     dark
                     expand-on-hover
-                    mini-variant-width="53"
                     v-model="drawer"
                 >
                     <v-list-item class="px-2">
@@ -116,7 +114,7 @@
                 links: ['Group 1', 'Group 2'],
                 mini: true,
                 drawer: true,
-                navWidth: '30%'
+                navWidth: 'auto'
             }
         },
         methods:{

@@ -2023,8 +2023,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NavComponent",
   data: function data() {
@@ -2049,7 +2047,7 @@ __webpack_require__.r(__webpack_exports__);
       links: ['Group 1', 'Group 2'],
       mini: true,
       drawer: true,
-      navWidth: '30%'
+      navWidth: 'auto'
     };
   },
   methods: {
@@ -37454,7 +37452,7 @@ var render = function() {
       _c(
         "v-navigation-drawer",
         {
-          attrs: { app: "", clipped: "", width: "33%" },
+          attrs: { app: "", clipped: "", width: "auto" },
           model: {
             value: _vm.drawer,
             callback: function($$v) {
@@ -37471,11 +37469,7 @@ var render = function() {
               _c(
                 "v-navigation-drawer",
                 {
-                  attrs: {
-                    dark: "",
-                    "expand-on-hover": "",
-                    "mini-variant-width": "53"
-                  },
+                  attrs: { dark: "", "expand-on-hover": "" },
                   model: {
                     value: _vm.drawer,
                     callback: function($$v) {

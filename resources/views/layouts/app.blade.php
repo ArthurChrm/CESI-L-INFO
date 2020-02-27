@@ -23,8 +23,8 @@
 <div id="app">
     <v-app>
         <nav-component></nav-component>
-        <v-content>
-            <v-container fluid>
+        <v-content fluid>
+            <v-container>
                 @yield('content')
             </v-container>
         </v-content>
