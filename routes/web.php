@@ -22,3 +22,7 @@ Route::get('/message/create', "MessageController@edit")->name("create_message");
 Route::POST("/message", "MessageController@store")->name("store_message");
 Route::get('/message', "MessageController@index")->name("message");
 Route::get('/message/salon/{salon}', "MessageController@index_salon")->name("message_salon");
+
+Route::get('/upload', 'UploadFileController@index');
+Route::post('upload/add', 'UploadFileController@uploadFiles');
+
