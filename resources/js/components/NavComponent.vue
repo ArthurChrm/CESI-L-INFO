@@ -1,19 +1,22 @@
 <template>
-    <v-card>
+    <v-card
+        tile>
         <v-app-bar
-            color="deep-purple"
+            app
+            clipped-left
             dark
+
         >
-            <v-app-bar-nav-icon @click="drawer = true">
+            <v-app-bar-nav-icon @click="openCloseNav">
                 <v-icon>fa-bars</v-icon>
             </v-app-bar-nav-icon>
 
             <v-toolbar-items></v-toolbar-items>
         </v-app-bar>
         <v-navigation-drawer app
+                             clipped
                              v-model="drawer"
                              width="33%"
-                             floating
         >
             <v-row class="fill-height" no-gutters>
                 <v-navigation-drawer
@@ -77,6 +80,8 @@
                             <v-icon>fa-plus</v-icon>
                         </v-btn>
                     </v-toolbar>
+                    <v-divider></v-divider>
+                    <v-subheader>Groupes</v-subheader>
                     <v-list-item
                         v-for="link in links"
                         :key="link"
@@ -112,6 +117,11 @@
                 mini: true,
                 drawer: true,
                 navWidth: '30%'
+            }
+        },
+        methods:{
+            openCloseNav(){
+                this.drawer = !this.drawer;
             }
         }
     }

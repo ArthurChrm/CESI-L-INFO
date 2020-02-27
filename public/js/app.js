@@ -2020,6 +2020,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NavComponent",
   data: function data() {
@@ -2046,6 +2051,11 @@ __webpack_require__.r(__webpack_exports__);
       drawer: true,
       navWidth: '30%'
     };
+  },
+  methods: {
+    openCloseNav: function openCloseNav() {
+      this.drawer = !this.drawer;
+    }
   }
 });
 
@@ -37423,20 +37433,15 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-card",
+    { attrs: { tile: "" } },
     [
       _c(
         "v-app-bar",
-        { attrs: { color: "deep-purple", dark: "" } },
+        { attrs: { app: "", "clipped-left": "", dark: "" } },
         [
           _c(
             "v-app-bar-nav-icon",
-            {
-              on: {
-                click: function($event) {
-                  _vm.drawer = true
-                }
-              }
-            },
+            { on: { click: _vm.openCloseNav } },
             [_c("v-icon", [_vm._v("fa-bars")])],
             1
           ),
@@ -37449,7 +37454,7 @@ var render = function() {
       _c(
         "v-navigation-drawer",
         {
-          attrs: { app: "", width: "33%", floating: "" },
+          attrs: { app: "", clipped: "", width: "33%" },
           model: {
             value: _vm.drawer,
             callback: function($$v) {
@@ -37595,6 +37600,10 @@ var render = function() {
                     ],
                     1
                   ),
+                  _vm._v(" "),
+                  _c("v-divider"),
+                  _vm._v(" "),
+                  _c("v-subheader", [_vm._v("Groupes")]),
                   _vm._v(" "),
                   _vm._l(_vm.links, function(link) {
                     return _c(
