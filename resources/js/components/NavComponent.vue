@@ -36,6 +36,20 @@
                             <v-list-item-title>{{ item.title }}</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
+                    <v-divider></v-divider>
+                    <v-list-item
+                        v-for="item in items_2"
+                        :key="item.title"
+                        @click=""
+                    >
+                        <v-list-item-action>
+                            <v-icon>{{ item.icon }}</v-icon>
+                        </v-list-item-action>
+
+                        <v-list-item-content>
+                            <v-list-item-title>{{ item.title }}</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
                 </v-list>
             </v-navigation-drawer>
 
@@ -58,9 +72,15 @@
         data () {
             return {
                 items: [
-                    { title: 'Discussions', icon: 'fas fas-file-alt' },
+                    { title: 'Discussions', icon: 'fa-comments' },
+                    { title: 'Fichiers', icon: 'fa-file-alt' },
+                    { title: 'Evenements', icon: 'fa-calendar-alt' },
                 ],
-                links: ['Discussions'],
+                items_2: [
+                    {title: 'Profile', icon: 'fa-user-circle'},
+                    {title: 'Se déconnecter', icon: 'fa-sign-out-alt'},
+                ],
+                links: [],
                 mini: true,
             }
         },

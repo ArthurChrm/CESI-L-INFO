@@ -1978,15 +1978,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NavComponent",
   data: function data() {
     return {
       items: [{
         title: 'Discussions',
-        icon: 'fas fas-file-alt'
+        icon: 'fa-comments'
+      }, {
+        title: 'Fichiers',
+        icon: 'fa-file-alt'
+      }, {
+        title: 'Evenements',
+        icon: 'fa-calendar-alt'
       }],
-      links: ['Discussions'],
+      items_2: [{
+        title: 'Profile',
+        icon: 'fa-user-circle'
+      }, {
+        title: 'Se déconnecter',
+        icon: 'fa-sign-out-alt'
+      }],
+      links: [],
       mini: true
     };
   }
@@ -37408,27 +37435,60 @@ var render = function() {
               _c(
                 "v-list",
                 { attrs: { dense: "", nav: "" } },
-                _vm._l(_vm.items, function(item) {
-                  return _c(
-                    "v-list-item",
-                    { key: item.title, on: { click: function($event) {} } },
-                    [
-                      _c(
-                        "v-list-item-action",
-                        [_c("v-icon", [_vm._v(_vm._s(item.icon))])],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-list-item-content",
-                        [_c("v-list-item-title", [_vm._v(_vm._s(item.title))])],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                }),
-                1
+                [
+                  _vm._l(_vm.items, function(item) {
+                    return _c(
+                      "v-list-item",
+                      { key: item.title, on: { click: function($event) {} } },
+                      [
+                        _c(
+                          "v-list-item-action",
+                          [_c("v-icon", [_vm._v(_vm._s(item.icon))])],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-list-item-content",
+                          [
+                            _c("v-list-item-title", [
+                              _vm._v(_vm._s(item.title))
+                            ])
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  }),
+                  _vm._v(" "),
+                  _c("v-divider"),
+                  _vm._v(" "),
+                  _vm._l(_vm.items_2, function(item) {
+                    return _c(
+                      "v-list-item",
+                      { key: item.title, on: { click: function($event) {} } },
+                      [
+                        _c(
+                          "v-list-item-action",
+                          [_c("v-icon", [_vm._v(_vm._s(item.icon))])],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "v-list-item-content",
+                          [
+                            _c("v-list-item-title", [
+                              _vm._v(_vm._s(item.title))
+                            ])
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  })
+                ],
+                2
               )
             ],
             1
