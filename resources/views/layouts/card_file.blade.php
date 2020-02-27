@@ -22,9 +22,7 @@
 <body>
     <div id="app">
         <v-app>
-            <CardFileComponent>
-            </CardFileComponent>
-        @yield('body');
+            @yield('body');
         </v-app>
     </div>
 </body>
