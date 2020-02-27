@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
-
 
 class LoginController extends Controller
 {
@@ -41,24 +38,12 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-   
-
-    /**
-     * Handle an authentication attempt.
-     *
-     * @param  \Illuminate\Http\Request $request
-     *
-     * @return Response
-     */
-    public function authenticate(Request $request)
+    public function index()
     {
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            // Authentication passed...
-            return redirect()->intended('dashboard');
+        if (\Auth::check()) {
+            return 'vous êtes déjà connecté';
+        } else {
+            return view('login');
         }
     }
-
-
 }
