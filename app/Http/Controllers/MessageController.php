@@ -3,17 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Message;
+use App\Event;
+use App\Document;
+use App\Salon;
 
 class MessageController extends Controller
 {
     public function index()
     {
-        $messages = \DB::table('messages')->get();
+        $messages = Message::get();
         foreach ($messages as $msg) {
-            $fichiers = \DB::table('documents')->where('message_id', $msg->id)->get();
+            $fichiers = Document::where('message_id', $msg->id)->get();
             $msg->fichiers = $fichiers;
 
-            $evenements = \DB::table("events")->where("message_id", $msg->id)->get();
+            $evenements = \App\Event::where('message_id', $msg->id)->get();
             $msg->evenements = $evenements;
         }
 
@@ -22,21 +25,21 @@ class MessageController extends Controller
 
     public function index_salon($salon)
     {
-        $messages = \DB::table('messages')->where('salon_id', $salon)->get();
+        $messages = Message::where('salon_id', $salon)->get();
         foreach ($messages as $msg) {
-            $fichiers = \DB::table('documents')->where('message_id', $msg->id)->get();
+            $fichiers = Document::where('message_id', $msg->id)->get();
             $msg->fichiers = $fichiers;
 
-            $evenements = \DB::table("events")->where("message_id", $msg->id)->get();
+            $evenements = Event::where("message_id", $msg->id)->get();
             $msg->evenements = $evenements;
         }
-        
+
         return view('message', compact('messages'));
     }
 
     public function edit()
     {
-        $salons = \DB::table("salons")->get();
+        $salons = Salon::all();
         return view("message.create", compact('salons'));
     }
 

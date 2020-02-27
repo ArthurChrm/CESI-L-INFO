@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Event;
+use App\Salon;
+
 class EvenementController extends Controller
 {
     public function index(){
-        $evenements = \DB::table('events')->get();
+        $evenements = Event::all();;
 
         return view('evenement', compact('evenements'));
     }
 
     public function edit(){
-        $salons = \DB::table("salons")->get();
+        $salons = Salon::all();
         return view("evenement.create", compact('salons'));
     }
 
     public function store(){
-        $evenement = new \App\Event();
+        $evenement = new Event();
         $evenement->name = request()->name;
         $evenement->description= request()->description;
         $evenement->message_id = 2;

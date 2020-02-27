@@ -6,6 +6,7 @@ use Validator;
 use Request;
 use App\Document;
 use Storage;
+use \File;
 
 class UploadFileController extends Controller
 {
@@ -39,23 +40,24 @@ class UploadFileController extends Controller
         $fileName = rand(11111, 99999) . '.' . $extension;
         $upload_success = $file->move($destinationPath, $fileName);
 
-        if ($upload_success) {            
+        if ($upload_success) {
             $document = new Document();
-            $document->link = $destinationPath.'/'.$fileName;
-            // $document->link = $fileName;
+            $document->link = $destinationPath . '/' . $fileName;
             $document->message_id = 2;
             $document->save();
             return 'Upload succesful !';
+        } else {
+            return 'Upload impossible';
         }
     }
 
-    public function delete(Document $document){
+    public function delete(Document $document)
+    {
+        File::delete($document->link);
 
-        \File::delete($document->link);
-
-        if($document->delete()){
+        if ($document->delete()) {
             return 'Suppression terminé avec succés';
-        }else{
+        } else {
             return 'echec de la suppression';
         }
     }
