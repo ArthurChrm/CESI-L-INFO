@@ -19,10 +19,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('/register', 'Auth\RegisterController@create');
-Route::get('/register', function(){
+Route::get('/register', function () {
     return view('Register');
 });
-Route::post('/login', 'Auth\LoginController@authenticate');
-Route::get('/login', function(){
-    return view('Login');
-});
+// Route::post('/login', 'Auth\LoginController@authenticate');
+Route::get('/login', 'Auth\LoginController@index');
+// Route::GET('/login', function () {
+//     return view('login');
+// });
