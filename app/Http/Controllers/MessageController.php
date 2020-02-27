@@ -9,10 +9,12 @@ class MessageController extends Controller
     public function index()
     {
         $messages = \DB::table('messages')->get();
-
         foreach ($messages as $msg) {
             $fichiers = \DB::table('documents')->where('message_id', $msg->id)->get();
             $msg->fichiers = $fichiers;
+
+            $evenements = \DB::table("events")->where("message_id", $msg->id)->get();
+            $msg->evenements = $evenements;
         }
 
         return view("message", compact('messages'));
@@ -21,6 +23,14 @@ class MessageController extends Controller
     public function index_salon($salon)
     {
         $messages = \DB::table('messages')->where('salon_id', $salon)->get();
+        foreach ($messages as $msg) {
+            $fichiers = \DB::table('documents')->where('message_id', $msg->id)->get();
+            $msg->fichiers = $fichiers;
+
+            $evenements = \DB::table("events")->where("message_id", $msg->id)->get();
+            $msg->evenements = $evenements;
+        }
+        
         return view('message', compact('messages'));
     }
 
