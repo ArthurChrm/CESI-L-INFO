@@ -1992,6 +1992,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NavComponent",
   data: function data() {
@@ -2013,8 +2041,10 @@ __webpack_require__.r(__webpack_exports__);
         title: 'Se déconnecter',
         icon: 'fa-sign-out-alt'
       }],
-      links: [],
-      mini: true
+      links: ['Group 1', 'Group 2'],
+      mini: true,
+      drawer: true,
+      navWidth: '30%'
     };
   }
 });
@@ -37392,97 +37422,201 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-navigation-drawer",
-    { attrs: { app: "", permanent: "", width: "30%" } },
+    "v-card",
     [
       _c(
-        "v-row",
-        { staticClass: "fill-height", attrs: { "no-gutters": "" } },
+        "v-app-bar",
+        { attrs: { color: "deep-purple", dark: "" } },
         [
           _c(
-            "v-navigation-drawer",
+            "v-app-bar-nav-icon",
             {
-              attrs: {
-                dark: "",
-                "mini-variant": "",
-                "mini-variant-width": "56",
-                permanent: ""
+              on: {
+                click: function($event) {
+                  _vm.drawer = true
+                }
               }
             },
+            [_c("v-icon", [_vm._v("fa-bars")])],
+            1
+          ),
+          _vm._v(" "),
+          _c("v-toolbar-items")
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-navigation-drawer",
+        {
+          attrs: { app: "", width: "33%", floating: "" },
+          model: {
+            value: _vm.drawer,
+            callback: function($$v) {
+              _vm.drawer = $$v
+            },
+            expression: "drawer"
+          }
+        },
+        [
+          _c(
+            "v-row",
+            { staticClass: "fill-height", attrs: { "no-gutters": "" } },
             [
               _c(
-                "v-list-item",
-                { staticClass: "px-2" },
+                "v-navigation-drawer",
+                {
+                  attrs: {
+                    dark: "",
+                    "expand-on-hover": "",
+                    "mini-variant-width": "53"
+                  },
+                  model: {
+                    value: _vm.drawer,
+                    callback: function($$v) {
+                      _vm.drawer = $$v
+                    },
+                    expression: "drawer"
+                  }
+                },
                 [
                   _c(
-                    "v-list-item-avatar",
+                    "v-list-item",
+                    { staticClass: "px-2" },
                     [
-                      _c("v-img", {
-                        attrs: {
-                          src:
-                            "https://randomuser.me/api/portraits/women/75.jpg"
-                        }
-                      })
+                      _c(
+                        "v-list-item-avatar",
+                        [
+                          _c("v-img", {
+                            attrs: {
+                              src:
+                                "https://randomuser.me/api/portraits/women/75.jpg"
+                            }
+                          })
+                        ],
+                        1
+                      )
                     ],
                     1
+                  ),
+                  _vm._v(" "),
+                  _c("v-divider"),
+                  _vm._v(" "),
+                  _c(
+                    "v-list",
+                    { attrs: { dense: "", nav: "" } },
+                    [
+                      _vm._l(_vm.items, function(item) {
+                        return _c(
+                          "v-list-item",
+                          {
+                            key: item.title,
+                            on: { click: function($event) {} }
+                          },
+                          [
+                            _c(
+                              "v-list-item-action",
+                              [_c("v-icon", [_vm._v(_vm._s(item.icon))])],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-list-item-content",
+                              [
+                                _c("v-list-item-title", [
+                                  _vm._v(_vm._s(item.title))
+                                ])
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      }),
+                      _vm._v(" "),
+                      _c("v-divider"),
+                      _vm._v(" "),
+                      _vm._l(_vm.items_2, function(item) {
+                        return _c(
+                          "v-list-item",
+                          {
+                            key: item.title,
+                            on: { click: function($event) {} }
+                          },
+                          [
+                            _c(
+                              "v-list-item-action",
+                              [_c("v-icon", [_vm._v(_vm._s(item.icon))])],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-list-item-content",
+                              [
+                                _c("v-list-item-title", [
+                                  _vm._v(_vm._s(item.title))
+                                ])
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      })
+                    ],
+                    2
                   )
                 ],
                 1
               ),
               _vm._v(" "),
-              _c("v-divider"),
-              _vm._v(" "),
               _c(
                 "v-list",
-                { attrs: { dense: "", nav: "" } },
+                { staticClass: "grow p-0" },
                 [
-                  _vm._l(_vm.items, function(item) {
+                  _c(
+                    "v-toolbar",
+                    { staticClass: "m-0", attrs: { flat: "" } },
+                    [
+                      _c("v-text-field", {
+                        attrs: {
+                          "hide-details": "",
+                          "prepend-icon": "fa-search",
+                          "single-line": ""
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        { attrs: { icon: "" } },
+                        [_c("v-icon", [_vm._v("fa-plus")])],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm._l(_vm.links, function(link) {
                     return _c(
                       "v-list-item",
-                      { key: item.title, on: { click: function($event) {} } },
+                      { key: link, attrs: { link: "" } },
                       [
                         _c(
-                          "v-list-item-action",
-                          [_c("v-icon", [_vm._v(_vm._s(item.icon))])],
+                          "v-list-item-avatar",
+                          [
+                            _c("v-img", {
+                              attrs: {
+                                src:
+                                  "https://randomuser.me/api/portraits/women/75.jpg"
+                              }
+                            })
+                          ],
                           1
                         ),
                         _vm._v(" "),
-                        _c(
-                          "v-list-item-content",
-                          [
-                            _c("v-list-item-title", [
-                              _vm._v(_vm._s(item.title))
-                            ])
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  }),
-                  _vm._v(" "),
-                  _c("v-divider"),
-                  _vm._v(" "),
-                  _vm._l(_vm.items_2, function(item) {
-                    return _c(
-                      "v-list-item",
-                      { key: item.title, on: { click: function($event) {} } },
-                      [
-                        _c(
-                          "v-list-item-action",
-                          [_c("v-icon", [_vm._v(_vm._s(item.icon))])],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-list-item-content",
-                          [
-                            _c("v-list-item-title", [
-                              _vm._v(_vm._s(item.title))
-                            ])
-                          ],
-                          1
-                        )
+                        _c("v-list-item-title", {
+                          domProps: { textContent: _vm._s(link) }
+                        })
                       ],
                       1
                     )
@@ -37491,24 +37625,6 @@ var render = function() {
                 2
               )
             ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-list",
-            { staticClass: "grow" },
-            _vm._l(_vm.links, function(link) {
-              return _c(
-                "v-list-item",
-                { key: link, attrs: { link: "" } },
-                [
-                  _c("v-list-item-title", {
-                    domProps: { textContent: _vm._s(link) }
-                  })
-                ],
-                1
-              )
-            }),
             1
           )
         ],
