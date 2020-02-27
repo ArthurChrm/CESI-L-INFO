@@ -1,6 +1,7 @@
 import Vuetify from 'vuetify';
 
 require('./bootstrap');
+require('@fortawesome/fontawesome-free/js/all.min');
 
 window.Vue = require('vue');
 Vue.use(Vuetify);
