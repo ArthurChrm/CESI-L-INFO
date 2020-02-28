@@ -36,5 +36,3 @@ Route::GET('/message/salon/{salon}', "MessageController@index_salon")->name("mes
 
 // Evenement routes
 Route::GET('/evenement', 'EvenementController@index');
-// Route::GET('/evenement/create', 'EvenementController@edit');
-// Route::POST('/evenement/add', 'EvenementController@store');
