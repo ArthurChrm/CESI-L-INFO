@@ -37,4 +37,13 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function index()
+    {
+        if (\Auth::check()) {
+            return 'vous êtes déjà connecté';
+        } else {
+            return view('login');
+        }
+    }
 }
