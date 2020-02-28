@@ -2068,12 +2068,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NavComponent",
   data: function data() {
     return {
+      user: {
+        fullname: 'John Doe',
+        email: 'john.doe@gmail.com',
+        profile_img: 'https://randomuser.me/api/portraits/women/75.jpg'
+      },
       primary_links: [{
         title: 'Discussions',
         icon: 'fa-comments',
@@ -2107,7 +2110,6 @@ __webpack_require__.r(__webpack_exports__);
       }],
       mini: true,
       drawer: true,
-      navWidth: 'auto',
       darkMode: false,
       loading: true,
       searchQuery: null //Result of search bar
@@ -2146,13 +2148,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     //Disable nav hover on small devices
     activateHover: function activateHover() {
-      switch (this.$vuetify.breakpoint.name) {
-        case 'xs':
-          return false;
-
-        default:
-          return true;
-      }
+      return this.$vuetify.breakpoint.name !== 'xs';
     },
     //Search bar query filter
     resultQuery: function resultQuery() {
@@ -38214,8 +38210,6 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("v-toolbar-items"),
-          _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
           _c(
@@ -38335,10 +38329,7 @@ var render = function() {
                             "v-list-item-avatar",
                             [
                               _c("v-img", {
-                                attrs: {
-                                  src:
-                                    "https://randomuser.me/api/portraits/women/75.jpg"
-                                }
+                                attrs: { src: _vm.user.profile_img }
                               })
                             ],
                             1
@@ -38349,7 +38340,6 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "v-list-item",
-                        { attrs: { link: "" } },
                         [
                           _c(
                             "v-list-item-content",
@@ -38357,11 +38347,11 @@ var render = function() {
                               _c(
                                 "v-list-item-title",
                                 { staticClass: "title" },
-                                [_vm._v("Sandra Adams")]
+                                [_vm._v(_vm._s(_vm.user.fullname))]
                               ),
                               _vm._v(" "),
                               _c("v-list-item-subtitle", [
-                                _vm._v("sandra_a88@gmail.com")
+                                _vm._v(_vm._s(_vm.user.email))
                               ])
                             ],
                             1
