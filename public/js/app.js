@@ -2067,33 +2067,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NavComponent",
   data: function data() {
     return {
-      items: [{
+      primary_links: [{
         title: 'Discussions',
-        icon: 'fa-comments'
+        icon: 'fa-comments',
+        link: '#'
       }, {
         title: 'Fichiers',
-        icon: 'fa-file-alt'
+        icon: 'fa-file-alt',
+        link: '#'
       }, {
         title: 'Evenements',
-        icon: 'fa-calendar-alt'
+        icon: 'fa-calendar-alt',
+        link: '#'
       }],
-      items_2: [{
+      secondary_links: [{
         title: 'Profile',
-        icon: 'fa-user-circle'
+        icon: 'fa-user-circle',
+        link: '#'
       }, {
         title: 'Se déconnecter',
-        icon: 'fa-sign-out-alt'
+        icon: 'fa-sign-out-alt',
+        link: '#'
       }],
-      links: ['Group 1', 'Group 2'],
+      groups: [{
+        name: 'Group 1',
+        img: 'https://randomuser.me/api/portraits/women/75.jpg',
+        link: '#'
+      }, {
+        name: 'Group 2',
+        img: 'https://randomuser.me/api/portraits/women/75.jpg',
+        link: '#'
+      }],
       mini: true,
       drawer: true,
       navWidth: 'auto',
       darkMode: false,
-      loading: true
+      loading: true,
+      searchQuery: null
     };
   },
   methods: {
@@ -2132,6 +2149,19 @@ __webpack_require__.r(__webpack_exports__);
 
         default:
           return true;
+      }
+    },
+    resultQuery: function resultQuery() {
+      var _this2 = this;
+
+      if (this.searchQuery) {
+        return this.groups.filter(function (item) {
+          return _this2.searchQuery.toLowerCase().split(' ').every(function (v) {
+            return item.name.toLowerCase().includes(v);
+          });
+        });
+      } else {
+        return this.groups;
       }
     }
   }
@@ -6682,7 +6712,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n[v-cloak][data-v-152c8205] {display: none!important;}\n", ""]);
+exports.push([module.i, "\n[v-cloak][data-v-152c8205] {\n    display: none !important;\n}\n", ""]);
 
 // exports
 
@@ -38345,13 +38375,10 @@ var render = function() {
                     "v-list",
                     { attrs: { dense: "", nav: "" } },
                     [
-                      _vm._l(_vm.items, function(item) {
+                      _vm._l(_vm.primary_links, function(item) {
                         return _c(
                           "v-list-item",
-                          {
-                            key: item.title,
-                            on: { click: function($event) {} }
-                          },
+                          { key: item.title, attrs: { href: item.link } },
                           [
                             _c(
                               "v-list-item-action",
@@ -38375,13 +38402,10 @@ var render = function() {
                       _vm._v(" "),
                       _c("v-divider"),
                       _vm._v(" "),
-                      _vm._l(_vm.items_2, function(item) {
+                      _vm._l(_vm.secondary_links, function(item) {
                         return _c(
                           "v-list-item",
-                          {
-                            key: item.title,
-                            on: { click: function($event) {} }
-                          },
+                          { key: item.title, attrs: { href: item.link } },
                           [
                             _c(
                               "v-list-item-action",
@@ -38421,7 +38445,15 @@ var render = function() {
                         attrs: {
                           "hide-details": "",
                           "prepend-icon": "fa-search",
-                          "single-line": ""
+                          "single-line": "",
+                          placeholder: "Rechercher un groupe"
+                        },
+                        model: {
+                          value: _vm.searchQuery,
+                          callback: function($$v) {
+                            _vm.searchQuery = $$v
+                          },
+                          expression: "searchQuery"
                         }
                       }),
                       _vm._v(" "),
@@ -38439,27 +38471,21 @@ var render = function() {
                   _vm._v(" "),
                   _c("v-subheader", [_vm._v("Groupes")]),
                   _vm._v(" "),
-                  _vm._l(_vm.links, function(link) {
+                  _vm._l(_vm.resultQuery, function(group) {
                     return _c(
                       "v-list-item",
-                      { key: link, attrs: { link: "" } },
+                      {
+                        key: group.name,
+                        attrs: { href: group.link, link: "" }
+                      },
                       [
                         _c(
                           "v-list-item-avatar",
-                          [
-                            _c("v-img", {
-                              attrs: {
-                                src:
-                                  "https://randomuser.me/api/portraits/women/75.jpg"
-                              }
-                            })
-                          ],
+                          [_c("v-img", { attrs: { src: group.img } })],
                           1
                         ),
                         _vm._v(" "),
-                        _c("v-list-item-title", {
-                          domProps: { textContent: _vm._s(link) }
-                        })
+                        _c("v-list-item-title", [_vm._v(_vm._s(group.name))])
                       ],
                       1
                     )

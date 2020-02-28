@@ -37,7 +37,7 @@
                         </v-list-item-content>
                         <v-list-item-action>
                             <v-switch inset
-                                v-model="darkMode"
+                                      v-model="darkMode"
                                       @change="darkModeSwitch"
                             ></v-switch>
                         </v-list-item-action>
@@ -81,9 +81,9 @@
                     >
 
                         <v-list-item
-                            v-for="item in items"
+                            v-for="item in primary_links"
                             :key="item.title"
-                            @click=""
+                            :href="item.link"
                         >
                             <v-list-item-action>
                                 <v-icon>{{ item.icon }}</v-icon>
@@ -95,9 +95,9 @@
                         </v-list-item>
                         <v-divider></v-divider>
                         <v-list-item
-                            v-for="item in items_2"
+                            v-for="item in secondary_links"
                             :key="item.title"
-                            @click=""
+                            :href="item.link"
                         >
                             <v-list-item-action>
                                 <v-icon>{{ item.icon }}</v-icon>
@@ -111,12 +111,14 @@
                 </v-navigation-drawer>
                 <v-list class="grow p-0">
                     <v-toolbar class="m-0"
-                        flat
+                               flat
                     >
                         <v-text-field
                             hide-details
                             prepend-icon="fa-search"
                             single-line
+                            v-model="searchQuery"
+                            placeholder="Rechercher un groupe"
                         ></v-text-field>
                         <v-btn icon>
                             <v-icon>fa-plus</v-icon>
@@ -125,14 +127,15 @@
                     <v-divider></v-divider>
                     <v-subheader>Groupes</v-subheader>
                     <v-list-item
-                        v-for="link in links"
-                        :key="link"
+                        v-for="group in resultQuery"
+                        :key="group.name"
+                        :href="group.link"
                         link
                     >
                         <v-list-item-avatar>
-                            <v-img src="https://randomuser.me/api/portraits/women/75.jpg"></v-img>
+                            <v-img :src="group.img"></v-img>
                         </v-list-item-avatar>
-                        <v-list-item-title v-text="link"></v-list-item-title>
+                        <v-list-item-title>{{group.name}}</v-list-item-title>
 
                     </v-list-item>
                 </v-list>
@@ -146,55 +149,72 @@
         name: "NavComponent",
         data() {
             return {
-                items: [
-                    {title: 'Discussions', icon: 'fa-comments'},
-                    {title: 'Fichiers', icon: 'fa-file-alt'},
-                    {title: 'Evenements', icon: 'fa-calendar-alt'},
+                primary_links: [
+                    {title: 'Discussions', icon: 'fa-comments',link:'#'},
+                    {title: 'Fichiers', icon: 'fa-file-alt',link:'#'},
+                    {title: 'Evenements', icon: 'fa-calendar-alt',link:'#'},
                 ],
-                items_2: [
-                    {title: 'Profile', icon: 'fa-user-circle'},
-                    {title: 'Se déconnecter', icon: 'fa-sign-out-alt'},
+                secondary_links: [
+                    {title: 'Profile', icon: 'fa-user-circle',link:'#'},
+                    {title: 'Se déconnecter', icon: 'fa-sign-out-alt',link:'#'},
                 ],
-                links: ['Group 1', 'Group 2'],
+                groups: [
+                    {name: 'Group 1',img: 'https://randomuser.me/api/portraits/women/75.jpg',link:'#'},
+                    {name: 'Group 2',img: 'https://randomuser.me/api/portraits/women/75.jpg',link:'#'}
+                ],
                 mini: true,
                 drawer: true,
                 navWidth: 'auto',
                 darkMode: false,
-                loading: true
+                loading: true,
+                searchQuery: null
             }
         },
-        methods:{
-            openCloseNav(){
+        methods: {
+            openCloseNav() {
                 this.drawer = !this.drawer;
             },
-            darkModeSwitch(){
+            darkModeSwitch() {
                 this.$vuetify.theme.dark = this.darkMode;
             }
         },
         mounted() {
             document.onreadystatechange = () => {
                 if (document.readyState === "complete") {
-                    if(this.drawer){
+                    if (this.drawer) {
                         // Close and re-open to fix v-content
                         this.openCloseNav();
                         setTimeout(() => this.loading = false, 500);
                         setTimeout(() => this.openCloseNav(), 500);
                     }
                 }
-            }
+            };
         },
         computed: {
             //Disable nav hover on small devices
-            activateHover () {
+            activateHover() {
                 switch (this.$vuetify.breakpoint.name) {
-                    case 'xs': return false;
-                    default: return true;
+                    case 'xs':
+                        return false;
+                    default:
+                        return true;
                 }
             },
+            resultQuery(){
+                if(this.searchQuery){
+                    return this.groups.filter((item)=>{
+                        return this.searchQuery.toLowerCase().split(' ').every(v => item.name.toLowerCase().includes(v))
+                    })
+                }else{
+                    return this.groups;
+                }
+            }
         },
     }
 </script>
 
 <style scoped>
-    [v-cloak] {display: none!important;}
+    [v-cloak] {
+        display: none !important;
+    }
 </style>
