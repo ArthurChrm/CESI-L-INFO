@@ -1,0 +1,24 @@
+Migrating: 2020_02_26_000003_create_users_table
+
+   Illuminate\Database\QueryException  : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'after `password`, `remember_token` varchar(100) null, `created_at` timestamp nul' at line 1 (SQL: create table `users` (`id` bigint unsigned not null auto_increment primary key, `name` varchar(100) not null, `first_name` varchar(100) not null, `email` varchar(255) not null, `email_verified_at` timestamp null, `birth_date` date not null, `address` varchar(100) not null, `phone_number` varchar(100) not null, `password` varchar(255) not null, `api_token` varchar(80) null after `password`, `remember_token` varchar(100) null, `created_at` timestamp null, `updated_at` timestamp null, `rang_id` bigint unsigned not null) default character set utf8mb4 collate 'utf8mb4_unicode_ci')
+
+  at C:\laragon\www\Cesi-l-info\vendor\laravel\framework\src\Illuminate\Database\Connection.php:669
+    665|         // If an exception occurs when attempting to run a query, we'll format the error
+    666|         // message to include the bindings with SQL, which will make this exception a
+    667|         // lot more helpful to the developer instead of just the database's errors.
+    668|         catch (Exception $e) {
+  > 669|             throw new QueryException(
+    670|                 $query, $this->prepareBindings($bindings), $e
+    671|             );
+    672|         }
+    673|
+
+  Exception trace:
+
+  1   PDOException::("SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'after `password`, `remember_token` varchar(100) null, `created_at` timestamp nul' at line 1")
+      C:\laragon\www\Cesi-l-info\vendor\laravel\framework\src\Illuminate\Database\Connection.php:457
+
+  2   PDO::prepare("create table `users` (`id` bigint unsigned not null auto_increment primary key, `name` varchar(100) not null, `first_name` varchar(100) not null, `email` varchar(255) not null, `email_verified_at` timestamp null, `birth_date` date not null, `address` varchar(100) not null, `phone_number` varchar(100) not null, `password` varchar(255) not null, `api_token` varchar(80) null after `password`, `remember_token` varchar(100) null, `created_at` timestamp null, `updated_at` timestamp null, `rang_id` bigint unsigned not null) default character set utf8mb4 collate 'utf8mb4_unicode_ci'")
+      C:\laragon\www\Cesi-l-info\vendor\laravel\framework\src\Illuminate\Database\Connection.php:457
+
+  Please use the argument -v to see more details.
