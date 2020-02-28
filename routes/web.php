@@ -32,6 +32,11 @@ Route::GET('/register', function () {
 // Login routes
 Route::GET('/login', 'Auth\LoginController@index');
 
+// Profile routes
+Route::get('/profile', function () {
+    return view('profile');
+});
+
 // Message routes
 Route::POST("/message", "MessageController@store")->name("store_message");
 Route::GET('/message', "MessageController@index")->name("message");
