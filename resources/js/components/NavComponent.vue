@@ -20,8 +20,10 @@
             <v-row class="fill-height" no-gutters>
                 <v-navigation-drawer
                     dark
-                    expand-on-hover
+                    :expand-on-hover="activateHover"
+                    :mini-variant="!activateHover"
                     v-model="drawer"
+                    stateless
                 >
                     <v-list-item class="px-2">
                         <v-list-item-avatar>
@@ -132,7 +134,16 @@
                     }
                 }
             }
-        }
+        },
+        computed: {
+            //Disable nav hover on small devices
+            activateHover () {
+                switch (this.$vuetify.breakpoint.name) {
+                    case 'xs': return false;
+                    default: return true;
+                }
+            },
+        },
     }
 </script>
 

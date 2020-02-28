@@ -2023,6 +2023,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NavComponent",
   data: function data() {
@@ -2070,6 +2072,18 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     };
+  },
+  computed: {
+    //Disable nav hover on small devices
+    activateHover: function activateHover() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs':
+          return false;
+
+        default:
+          return true;
+      }
+    }
   }
 });
 
@@ -37485,7 +37499,12 @@ var render = function() {
               _c(
                 "v-navigation-drawer",
                 {
-                  attrs: { dark: "", "expand-on-hover": "" },
+                  attrs: {
+                    dark: "",
+                    "expand-on-hover": _vm.activateHover,
+                    "mini-variant": !_vm.activateHover,
+                    stateless: ""
+                  },
                   model: {
                     value: _vm.drawer,
                     callback: function($$v) {
