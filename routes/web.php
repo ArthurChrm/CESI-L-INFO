@@ -11,9 +11,13 @@
 |
 */
 
-Route::get('/', function () {
+Auth::routes();
+
+// Welcome + home routes
+Route::GET('/', function () {
     return view('welcome');
 });
+Route::GET('/home', 'HomeController@index')->name('home');
 
 Route::get('/files', function () {
     return view('files');
@@ -23,6 +27,20 @@ Route::get('/event', function () {
     return view('event');
 });
 
-Auth::routes();
+// Register routes
+Route::POST('/register', 'Auth\RegisterController@create');
+Route::GET('/register', function () {
+    return view('Register');
+});
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Login routes
+Route::GET('/login', 'Auth\LoginController@index');
+
+// Message routes
+Route::POST("/message", "MessageController@store")->name("store_message");
+Route::GET('/message', "MessageController@index")->name("message");
+Route::GET('/message/create', "MessageController@edit")->name("create_message");
+Route::GET('/message/salon/{salon}', "MessageController@index_salon")->name("message_salon");
+
+// Evenement routes
+Route::GET('/evenement', 'EvenementController@index');

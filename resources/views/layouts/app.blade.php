@@ -20,6 +20,15 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    @if(\Auth::check())
+        <p><strong>Prenom/Nom: </strong>{{ Auth::user()->name }} <strong>id:</strong> {{ Auth::user()->id }}</p>
+        {{-- <p></p> --}}
+        <form action="/logout" method="POST">
+            @csrf
+            <input type="submit" value="Se déconnecter">
+          </form>
+    @endif
+    
 <div id="app" v-cloak>
     <v-app>
         <!-- Navigation -->
@@ -32,5 +41,6 @@
         </v-content>
     </v-app>
 </div>
+
 </body>
 </html>
