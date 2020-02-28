@@ -2068,6 +2068,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NavComponent",
   data: function data() {
@@ -38212,6 +38223,15 @@ var render = function() {
           _vm._v(" "),
           _c("v-spacer"),
           _vm._v(" "),
+          _vm._l(_vm.primary_links, function(item) {
+            return _c(
+              "v-btn-toggle",
+              { key: item.title, attrs: { href: item.link, mandatory: "" } },
+              [_c("v-btn", [_c("v-icon", [_vm._v(_vm._s(item.icon))])], 1)],
+              1
+            )
+          }),
+          _vm._v(" "),
           _c(
             "v-menu",
             {
@@ -38280,7 +38300,7 @@ var render = function() {
             1
           )
         ],
-        1
+        2
       ),
       _vm._v(" "),
       _c(

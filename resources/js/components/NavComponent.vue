@@ -15,6 +15,17 @@
 
             <v-spacer></v-spacer>
 
+            <v-btn-toggle
+                v-for="item in primary_links"
+                :key="item.title"
+                :href="item.link"
+                mandatory
+            >
+                <v-btn>
+                    <v-icon>{{ item.icon }}</v-icon>
+                </v-btn>
+            </v-btn-toggle>
+            
             <v-menu :close-on-content-click="false" offset-y>
                 <template v-slot:activator="{ on }">
                     <v-btn
