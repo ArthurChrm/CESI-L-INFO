@@ -20,6 +20,14 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    @if(\Auth::check())
+        {{ Auth::user()->name }}
+        <form action="/logout" method="POST">
+            @csrf
+            <input type="submit" value="Se déconnecter">
+          </form>
+    @endif
+
     @yield('body');
 </body>
 </html>
