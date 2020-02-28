@@ -21,13 +21,14 @@
 </head>
 <body>
     @if(\Auth::check())
-        {{ Auth::user()->name }}
+        <p><strong>Prenom/Nom: </strong>{{ Auth::user()->name }} <strong>id:</strong> {{ Auth::user()->id }}</p>
+        {{-- <p></p> --}}
         <form action="/logout" method="POST">
             @csrf
             <input type="submit" value="Se déconnecter">
           </form>
     @endif
 
-    @yield('body');
+    @yield('body')
 </body>
 </html>
