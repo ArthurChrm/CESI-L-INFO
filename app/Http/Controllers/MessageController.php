@@ -42,12 +42,17 @@ class MessageController extends Controller
         if(!\Auth::check()){
             return 'Vous n\'êtes pas connecté, impossible d\'afficher la page';
         }
+
         $salons = Salon::all();
         return view("message.create", compact('salons'));
     }
 
     public function store()
     {
+        if(!\Auth::check()){
+            return 'Vous n\'êtes pas connecté, action impossible';
+        }
+
         $message = new Message();
         $message->id_recipient = 1;
         $message->user_id = 1;
