@@ -13,8 +13,6 @@
                 <v-icon>fa-bars</v-icon>
             </v-app-bar-nav-icon>
 
-            <v-toolbar-items></v-toolbar-items>
-
             <v-spacer></v-spacer>
 
             <v-menu :close-on-content-click="false" offset-y>
@@ -164,7 +162,6 @@
                 ],
                 mini: true,
                 drawer: true,
-                navWidth: 'auto',
                 darkMode: false,
                 loading: true,
                 searchQuery: null //Result of search bar
@@ -195,12 +192,7 @@
         computed: {
             //Disable nav hover on small devices
             activateHover() {
-                switch (this.$vuetify.breakpoint.name) {
-                    case 'xs':
-                        return false;
-                    default:
-                        return true;
-                }
+                return this.$vuetify.breakpoint.name !== 'xs';
             },
             //Search bar query filter
             resultQuery(){
