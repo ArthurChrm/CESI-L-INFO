@@ -1,6 +1,6 @@
 import Vuetify from 'vuetify';
 
-import CardFileComponent from './components/CardFileComponent.vue'
+import CardFileComponent from './components/CardFileComponent.vue';
 require('./bootstrap');
 require('@fortawesome/fontawesome-free/js/all.min');
 
