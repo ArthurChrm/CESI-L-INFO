@@ -6,11 +6,10 @@
         @foreach($users as $user)
         <v-col>
             <trombi-component
-            name= {{ $user->name }}
-            firstname= {{ $user->firstname }}
-            email= {{ $user->email }}
-            address = {{ $user->address }}
-            telephone = {{ $user->phone_number }}
+            Name= "{{ $user->name }}"
+            First= "{{ $user->first_name }}"
+            Address = "{{ $user->address }}"
+            Telephone = "{{ $user->phone_number }}"
             >
             </trombi-component>
         </v-col>

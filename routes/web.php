@@ -40,3 +40,12 @@ Route::GET('/message/salon/{salon}', "MessageController@index_salon")->name("mes
 
 // Evenement routes
 Route::GET('/evenement', 'EvenementController@index');
+
+// Trombi routes
+Route::GET('/trombinoscope', function () {
+
+
+    return view('trombinoscope', [
+        'users' => App\User::latest()->get()
+    ]);
+});
