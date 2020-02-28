@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 
+use \App\Message;
+use \App\Http\Controllers\MessageController;
+use App\Http\Controllers\SalonController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,4 +19,16 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('message', function () {
+    return MessageController::getAllMessages();
+});
+
+Route::get('message/salon/{idSalon}', function ($idSalon) {
+    return MessageController::getAllMessagesFromRoom($idSalon);
+});
+
+Route::get('salons', function () {
+    return SalonController::getAllRooms();
 });

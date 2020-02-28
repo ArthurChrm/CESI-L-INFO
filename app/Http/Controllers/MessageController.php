@@ -5,15 +5,25 @@ namespace App\Http\Controllers;
 use App\Message;
 use App\Event;
 use App\Document;
-use App\Salon;
 use Auth;
-use Request;
 
 class MessageController extends Controller
 {
+    public static function getAllMessages()
+    {
+        return Message::get();
+    }
+
+    public static function getAllMessagesFromRoom($idSalon)
+    {
+        $messages = MessageController::getAllMessages();
+        $messages = $messages->where('salon_id', $idSalon);
+        return $messages;
+    }
+
     public function index()
     {
-        $messages = Message::get();
+        $messages = $this->getAllMessages();
         foreach ($messages as $msg) {
             $fichiers = Document::where('message_id', $msg->id)->get();
             $msg->fichiers = $fichiers;
@@ -27,7 +37,7 @@ class MessageController extends Controller
 
     public function index_salon($salon)
     {
-        $messages = Message::where('salon_id', $salon)->get();
+        $messages = MessageController::getAllMessages()->where('salon_id', $salon);
         foreach ($messages as $msg) {
             $fichiers = Document::where('message_id', $msg->id)->get();
             $msg->fichiers = $fichiers;
@@ -45,7 +55,7 @@ class MessageController extends Controller
             return 'Vous n\'êtes pas connecté, impossible d\'afficher la page';
         }
 
-        $salons = Salon::all();
+        $salons = SalonController::getAllRooms();
         return view("message.create", compact('salons'));
     }
 
