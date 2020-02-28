@@ -7,6 +7,7 @@ use App\Event;
 use App\Document;
 use App\Salon;
 use Auth;
+use Request;
 
 class MessageController extends Controller
 {
@@ -40,7 +41,7 @@ class MessageController extends Controller
 
     public function edit()
     {
-        if(!Auth::check()){
+        if (!Auth::check()) {
             return 'Vous n\'êtes pas connecté, impossible d\'afficher la page';
         }
 
@@ -50,16 +51,19 @@ class MessageController extends Controller
 
     public function store()
     {
-        if(!Auth::check()){
+        if (!Auth::check()) {
             return 'Vous n\'êtes pas connecté, action impossible';
         }
-
         $message = new Message();
         $message->id_recipient = 1;
         $message->user_id = Auth::user()->id;
         $message->salon_id = request()->Salon;
         $message->content = request()->message;
         $message->save();
+
+        if (request()->file) {
+            UploadFileController::uploadFiles($message);
+        }
 
         return redirect("/message");
     }

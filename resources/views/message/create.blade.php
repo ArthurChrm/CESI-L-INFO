@@ -2,7 +2,7 @@
 
 @section('body')
 
-<form method="POST" action="/message">
+<form method="POST" action="/message" enctype="multipart/form-data">
 @csrf
     {{-- @method("PUT") --}}
 
@@ -18,6 +18,7 @@
           <label for="{{$salon->salon_name}}">{{$salon->salon_name}}</label>
         </div>
       @endforeach
+      <input type="file" name="file">
     </div>
     <div>
       <input type="submit" value="Envoyer">

@@ -34,12 +34,6 @@ Route::GET('/message', "MessageController@index")->name("message");
 Route::GET('/message/create', "MessageController@edit")->name("create_message");
 Route::GET('/message/salon/{salon}', "MessageController@index_salon")->name("message_salon");
 
-// Upload routes
-Route::GET('/upload', 'UploadFileController@index');
-Route::POST('upload/add', 'UploadFileController@uploadFiles');
-Route::GET('upload/remove/{document}', 'UploadFileController@delete')->where('id', '(.*)');
-
-
 // Evenement routes
 Route::GET('/evenement', 'EvenementController@index');
 Route::GET('/evenement/create', 'EvenementController@edit');

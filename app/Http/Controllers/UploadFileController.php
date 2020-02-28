@@ -7,6 +7,7 @@ use Request;
 use App\Document;
 use Auth;
 use File;
+use \App\Message;
 
 class UploadFileController extends Controller
 {
@@ -18,12 +19,12 @@ class UploadFileController extends Controller
         return view('uploads');
     }
 
-    public function uploadFiles()
+    public static function uploadFiles(Message $message)
     {
         if (!Auth::check()) {
             return 'Vous n\'êtes pas connecté, action impossible';
         }
-
+        
         $input = Request::all();
 
         $rules = array(
@@ -50,7 +51,7 @@ class UploadFileController extends Controller
         if ($upload_success) {
             $document = new Document();
             $document->link = $destinationPath . '/' . $fileName;
-            $document->message_id = 2;
+            $document->message_id = $message->id;
             $document->save();
             return 'Upload succesful !';
         } else {
