@@ -11,7 +11,15 @@ class MessageController extends Controller
 {
     public static function getAllMessages()
     {
-        return Message::get();
+        $messages = Message::get();
+        foreach ($messages as $msg) {
+            $fichiers = Document::where('message_id', $msg->id)->get();
+            $msg->fichiers = $fichiers;
+
+            $evenements = \App\Event::where('message_id', $msg->id)->get();
+            $msg->evenements = $evenements;
+        }
+        return $messages;
     }
 
     public static function getAllMessagesFromRoom($idSalon)
@@ -24,14 +32,6 @@ class MessageController extends Controller
     public function index()
     {
         $messages = $this->getAllMessages();
-        foreach ($messages as $msg) {
-            $fichiers = Document::where('message_id', $msg->id)->get();
-            $msg->fichiers = $fichiers;
-
-            $evenements = \App\Event::where('message_id', $msg->id)->get();
-            $msg->evenements = $evenements;
-        }
-
         return view("message", compact('messages'));
     }
 

@@ -11,20 +11,13 @@ use \App\Message;
 
 class UploadFileController extends Controller
 {
-    public function index()
-    {
-        if (!Auth::check()) {
-            return 'Vous n\'êtes pas connecté, impossible d\'afficher la page';
-        }
-        return view('uploads');
-    }
 
     public static function uploadFiles(Message $message)
     {
         if (!Auth::check()) {
             return 'Vous n\'êtes pas connecté, action impossible';
         }
-        
+
         $input = Request::all();
 
         $rules = array(
@@ -57,6 +50,14 @@ class UploadFileController extends Controller
         } else {
             return 'Upload impossible';
         }
+    }
+    
+    public function index()
+    {
+        if (!Auth::check()) {
+            return 'Vous n\'êtes pas connecté, impossible d\'afficher la page';
+        }
+        return view('uploads');
     }
 
     public function delete(Document $document)
