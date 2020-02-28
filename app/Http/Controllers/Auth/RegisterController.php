@@ -62,12 +62,19 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+    protected function create(){
+            $user = new User();
+            $user->name = request()->name;
+            $user->first_name = request()->first_name;
+            $user->email = request()->email;
+            $user->birth_date = request()->birth_date;
+            // $user->DateTimecreateFromFormat('Y-m-d His', '2017-01-04 0052');
+            // $user->birth_date = date('Y-m-d Hi'); 
+            $user->address = request()->address;
+            $user->phone_number = request()->phone_number;
+            $user->password = Hash::make(request()->password);
+            $user->rang_id = 1;
+            $user->save();
+            return redirect('');
     }
 }
