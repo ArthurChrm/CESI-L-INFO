@@ -121,6 +121,17 @@
             openCloseNav(){
                 this.drawer = !this.drawer;
             }
+        },
+        mounted() {
+            document.onreadystatechange = () => {
+                if (document.readyState === "complete") {
+                    if(this.drawer){
+                        // Close and re-open to fix v-content
+                        this.openCloseNav();
+                        setTimeout(() => this.openCloseNav(), 500);
+                    }
+                }
+            }
         }
     }
 </script>

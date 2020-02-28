@@ -2054,6 +2054,22 @@ __webpack_require__.r(__webpack_exports__);
     openCloseNav: function openCloseNav() {
       this.drawer = !this.drawer;
     }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    document.onreadystatechange = function () {
+      if (document.readyState === "complete") {
+        if (_this.drawer) {
+          // Close and re-open to fix v-content
+          _this.openCloseNav();
+
+          setTimeout(function () {
+            return _this.openCloseNav();
+          }, 500);
+        }
+      }
+    };
   }
 });
 
