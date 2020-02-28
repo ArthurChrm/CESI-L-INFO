@@ -167,13 +167,15 @@
                 navWidth: 'auto',
                 darkMode: false,
                 loading: true,
-                searchQuery: null
+                searchQuery: null //Result of search bar
             }
         },
         methods: {
+            //Open / Close left navigation
             openCloseNav() {
                 this.drawer = !this.drawer;
             },
+            //Activate / Disable dark mode
             darkModeSwitch() {
                 this.$vuetify.theme.dark = this.darkMode;
             }
@@ -200,6 +202,7 @@
                         return true;
                 }
             },
+            //Search bar query filter
             resultQuery(){
                 if(this.searchQuery){
                     return this.groups.filter((item)=>{

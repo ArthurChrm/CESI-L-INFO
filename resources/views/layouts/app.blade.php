@@ -22,7 +22,9 @@
 <body>
 <div id="app" v-cloak>
     <v-app>
+        <!-- Navigation -->
         <nav-component></nav-component>
+        <!-- Page content -->
         <v-content fluid>
             <v-container>
                 @yield('content')
