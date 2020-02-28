@@ -2025,6 +2025,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NavComponent",
   data: function data() {
@@ -2049,12 +2088,16 @@ __webpack_require__.r(__webpack_exports__);
       links: ['Group 1', 'Group 2'],
       mini: true,
       drawer: true,
-      navWidth: 'auto'
+      navWidth: 'auto',
+      darkMode: false
     };
   },
   methods: {
     openCloseNav: function openCloseNav() {
       this.drawer = !this.drawer;
+    },
+    darkModeSwitch: function darkModeSwitch() {
+      this.$vuetify.theme.dark = this.darkMode;
     }
   },
   mounted: function mounted() {
@@ -37474,7 +37517,77 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("v-toolbar-items")
+          _c("v-toolbar-items"),
+          _vm._v(" "),
+          _c("v-spacer"),
+          _vm._v(" "),
+          _c(
+            "v-menu",
+            {
+              attrs: { "close-on-content-click": false, "offset-y": "" },
+              scopedSlots: _vm._u([
+                {
+                  key: "activator",
+                  fn: function(ref) {
+                    var on = ref.on
+                    return [
+                      _c(
+                        "v-btn",
+                        _vm._g({ attrs: { dark: "", icon: "" } }, on),
+                        [_c("v-icon", [_vm._v("fa-ellipsis-v")])],
+                        1
+                      )
+                    ]
+                  }
+                }
+              ])
+            },
+            [
+              _vm._v(" "),
+              _c(
+                "v-list",
+                [
+                  _c(
+                    "v-list-item",
+                    [
+                      _c(
+                        "v-list-item-icon",
+                        [_c("v-icon", [_vm._v("fa-adjust")])],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("v-list-item-content", [
+                        _vm._v(
+                          "\n                        Mode sombre\n                    "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-item-action",
+                        [
+                          _c("v-switch", {
+                            attrs: { inset: "" },
+                            on: { change: _vm.darkModeSwitch },
+                            model: {
+                              value: _vm.darkMode,
+                              callback: function($$v) {
+                                _vm.darkMode = $$v
+                              },
+                              expression: "darkMode"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
         ],
         1
       ),
@@ -37515,18 +37628,47 @@ var render = function() {
                 },
                 [
                   _c(
-                    "v-list-item",
-                    { staticClass: "px-2" },
+                    "v-list",
                     [
                       _c(
-                        "v-list-item-avatar",
+                        "v-list-item",
+                        { staticClass: "px-2" },
                         [
-                          _c("v-img", {
-                            attrs: {
-                              src:
-                                "https://randomuser.me/api/portraits/women/75.jpg"
-                            }
-                          })
+                          _c(
+                            "v-list-item-avatar",
+                            [
+                              _c("v-img", {
+                                attrs: {
+                                  src:
+                                    "https://randomuser.me/api/portraits/women/75.jpg"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-item",
+                        { attrs: { link: "" } },
+                        [
+                          _c(
+                            "v-list-item-content",
+                            [
+                              _c(
+                                "v-list-item-title",
+                                { staticClass: "title" },
+                                [_vm._v("Sandra Adams")]
+                              ),
+                              _vm._v(" "),
+                              _c("v-list-item-subtitle", [
+                                _vm._v("sandra_a88@gmail.com")
+                              ])
+                            ],
+                            1
+                          )
                         ],
                         1
                       )
