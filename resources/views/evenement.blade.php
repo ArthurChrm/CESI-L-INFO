@@ -1,9 +1,14 @@
 @extends('layouts.app')
 
 @section('body')
-<h1>Evenements : </h1>
-    @foreach($evenements as $evenement)
-    <p>{{$evenement->name}}<p>
-    
-    @endforeach
+    <div>
+        <v-row>
+            @foreach($evenements as $evenement)
+                <v-col>
+                    <card-event-component title-event="{{$evenement->name}}" date-event="{{$evenement->date}}" desc-event="{{$evenement->description}}">
+                    </card-event-component>
+                </v-col>
+            @endforeach
+        </v-row>
+    </div>
 @endsection

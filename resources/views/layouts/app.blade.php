@@ -28,7 +28,7 @@
             <input type="submit" value="Se déconnecter">
           </form>
     @endif
-    
+
 <div id="app" v-cloak>
     <v-app>
         <!-- Navigation -->
@@ -36,7 +36,7 @@
         <!-- Page content -->
         <v-content fluid>
             <v-container>
-                @yield('content')
+                @yield('body')
             </v-container>
         </v-content>
     </v-app>
