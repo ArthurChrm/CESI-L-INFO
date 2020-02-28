@@ -3,6 +3,7 @@
 use \App\Http\Controllers\MessageController;
 use App\Http\Controllers\SalonController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\EvenementController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,4 +37,13 @@ Route::get('documents/salon/{idSalon}', function ($idSalon) {
 // Route API salons
 Route::get('salons', function () {
     return SalonController::getAllRooms();
+});
+
+// Route API evenements
+Route::get('evenement', function () {
+    return EvenementController::getAllEvents();
+});
+
+Route::get('evenement/salon/{idSalon}', function ($idSalon) {
+    return EvenementController::getAllEventsFromRoom($idSalon);
 });

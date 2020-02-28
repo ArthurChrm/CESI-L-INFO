@@ -16,7 +16,7 @@ class MessageController extends Controller
             $fichiers = Document::where('message_id', $msg->id)->get();
             $msg->fichiers = $fichiers;
 
-            $evenements = \App\Event::where('message_id', $msg->id)->get();
+            $evenements = Event::where('message_id', $msg->id)->get();
             $msg->evenements = $evenements;
         }
         return $messages;

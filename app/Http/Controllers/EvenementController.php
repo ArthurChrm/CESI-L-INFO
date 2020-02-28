@@ -8,9 +8,26 @@ use App\Message;
 
 class EvenementController extends Controller
 {
+
+    public static function getAllEvents()
+    {
+        return Event::all();
+    }
+
+    public static function getAllEventsFromRoom($idSalon)
+    {
+        $messages = MessageController::getAllMessagesFromRoom($idSalon);
+        $evenements = array();
+        foreach ($messages as $message) {
+            if (count($message->evenements) <= 0) continue;
+            array_push($evenements, $message->evenements);
+        }
+        return $evenements;
+    }
+
     public function index()
     {
-        $evenements = Event::all();;
+        $evenements = $this::getAllEvents();
 
         return view('evenement', compact('evenements'));
     }
@@ -21,7 +38,7 @@ class EvenementController extends Controller
             return 'Vous n\'êtes pas connecté, impossible d\'afficher cette page';
         }
 
-        $salons = Salon::all();
+        $salons = $this::getAllEvents();
         return view("evenement.create", compact('salons'));
     }
 
@@ -30,7 +47,7 @@ class EvenementController extends Controller
         if (!\Auth::check()) {
             return 'Vous n\'êtes pas connecté, action impossible';
         }
-        // dd("test");
+
         $evenement = new Event();
         $evenement->name = request()->name_event;
         $evenement->description = request()->description_event;
