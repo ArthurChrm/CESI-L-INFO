@@ -1,6 +1,9 @@
 <template>
     <v-card
         tile>
+        <v-overlay :value="loading">
+            <v-progress-circular indeterminate size="64"></v-progress-circular>
+        </v-overlay>
         <v-app-bar
             app
             clipped-left
@@ -156,7 +159,8 @@
                 mini: true,
                 drawer: true,
                 navWidth: 'auto',
-                darkMode: false
+                darkMode: false,
+                loading: true
             }
         },
         methods:{
@@ -173,6 +177,7 @@
                     if(this.drawer){
                         // Close and re-open to fix v-content
                         this.openCloseNav();
+                        setTimeout(() => this.loading = false, 500);
                         setTimeout(() => this.openCloseNav(), 500);
                     }
                 }
@@ -191,5 +196,5 @@
 </script>
 
 <style scoped>
-
+    [v-cloak] {display: none!important;}
 </style>
