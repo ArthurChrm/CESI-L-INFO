@@ -16,10 +16,6 @@ use App\Http\Controllers\EvenementController;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 // Route API message
 Route::get('message', function () {
     return MessageController::getAllMessages();
