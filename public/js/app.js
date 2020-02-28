@@ -38473,7 +38473,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-card",
-    { staticClass: "ma-5", attrs: { "min-width": "25em", outlined: "" } },
+    { staticClass: "ma-5", attrs: { "min-width": "20em", outlined: "" } },
     [
       _c("v-card-title", [
         _vm._v("\n        " + _vm._s(_vm.nameFile) + "\n    ")

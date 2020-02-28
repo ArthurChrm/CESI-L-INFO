@@ -1,14 +1,16 @@
-@extends('layouts.card_file')
+@extends('layouts.app')
 
 @section('body')
-<div>
-    <v-row>
-        @for ($i = 0; $i < 10; $i++)
-            <card-file-component id={{$i}} name-file='Test {{$i}}' type-file=".ZIP {{$i}}" >
-            </card-file-component>
-        @endfor
-    </v-row>
-</div>
+    <div>
+        <v-row>
+            @for ($i = 0; $i < 10; $i++)
+                <v-col>
+                    <card-file-component id="" name-file="" type-file="">
+                    </card-file-component>
+                </v-col>
+            @endfor
+        </v-row>
+    </div>
 
 @endsection
 

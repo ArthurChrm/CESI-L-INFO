@@ -1,7 +1,7 @@
 <template>
     <v-card
     class="ma-5"
-    min-width="25em"
+    min-width="20em"
     outlined>
         <v-card-title>
             {{nameFile}}
