@@ -19,6 +19,14 @@ Route::GET('/', function () {
 });
 Route::GET('/home', 'HomeController@index')->name('home');
 
+Route::get('/files', function () {
+    return view('files');
+});
+
+Route::get('/event', function () {
+    return view('event');
+});
+
 // Register routes
 Route::POST('/register', 'Auth\RegisterController@create');
 Route::GET('/register', function () {
