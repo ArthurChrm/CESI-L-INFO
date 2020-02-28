@@ -39,6 +39,9 @@ class MessageController extends Controller
 
     public function edit()
     {
+        if(!\Auth::check()){
+            return 'Vous n\'êtes pas connecté, impossible d\'afficher la page';
+        }
         $salons = Salon::all();
         return view("message.create", compact('salons'));
     }

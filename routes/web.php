@@ -11,32 +11,36 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::post('/register', 'Auth\RegisterController@create');
-Route::get('/register', function () {
+// Welcome + home routes
+Route::GET('/', function () {
+    return view('welcome');
+});
+Route::GET('/home', 'HomeController@index')->name('home');
+
+// Register routes
+Route::POST('/register', 'Auth\RegisterController@create');
+Route::GET('/register', function () {
     return view('Register');
 });
-// Route::post('/login', 'Auth\LoginController@authenticate');
-Route::get('/login', 'Auth\LoginController@index');
-// Route::GET('/login', function () {
-//     return view('login');
-// });
-Route::get('/message/create', "MessageController@edit")->name("create_message");
+
+// Login routes
+Route::GET('/login', 'Auth\LoginController@index');
+
+// Message routes
 Route::POST("/message", "MessageController@store")->name("store_message");
-Route::get('/message', "MessageController@index")->name("message");
-Route::get('/message/salon/{salon}', "MessageController@index_salon")->name("message_salon");
+Route::GET('/message', "MessageController@index")->name("message");
+Route::GET('/message/create', "MessageController@edit")->name("create_message");
+Route::GET('/message/salon/{salon}', "MessageController@index_salon")->name("message_salon");
 
-Route::get('/upload', 'UploadFileController@index');
-Route::post('upload/add', 'UploadFileController@uploadFiles');
-Route::get('upload/remove/{document}', 'UploadFileController@delete')->where('id', '(.*)');
+// Upload routes
+Route::GET('/upload', 'UploadFileController@index');
+Route::POST('upload/add', 'UploadFileController@uploadFiles');
+Route::GET('upload/remove/{document}', 'UploadFileController@delete')->where('id', '(.*)');
 
+
+// Evenement routes
 Route::GET('/evenement', 'EvenementController@index');
 Route::GET('/evenement/create', 'EvenementController@edit');
 Route::POST('/evenement/add', 'EvenementController@store');
-

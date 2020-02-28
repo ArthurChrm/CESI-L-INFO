@@ -12,11 +12,18 @@ class UploadFileController extends Controller
 {
     public function index()
     {
+        if (!\Auth::check()) {
+            return 'Vous n\'êtes pas connecté, impossible d\'afficher la page';
+        }
         return view('uploads');
     }
 
     public function uploadFiles()
     {
+        if (!\Auth::check()) {
+            return 'Vous n\'êtes pas connecté, action impossible';
+        }
+
         $input = Request::all();
 
         $rules = array(
@@ -53,6 +60,10 @@ class UploadFileController extends Controller
 
     public function delete(Document $document)
     {
+        if (!\Auth::check()) {
+            return 'Vous n\'êtes pas connecté, action impossible';
+        }
+
         File::delete($document->link);
 
         if ($document->delete()) {
