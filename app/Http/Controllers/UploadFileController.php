@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use Validator;
 use Request;
 use App\Document;
-use Storage;
-use \File;
+use Auth;
+use File;
 
 class UploadFileController extends Controller
 {
     public function index()
     {
-        if (!\Auth::check()) {
+        if (!Auth::check()) {
             return 'Vous n\'êtes pas connecté, impossible d\'afficher la page';
         }
         return view('uploads');
@@ -20,7 +20,7 @@ class UploadFileController extends Controller
 
     public function uploadFiles()
     {
-        if (!\Auth::check()) {
+        if (!Auth::check()) {
             return 'Vous n\'êtes pas connecté, action impossible';
         }
 
@@ -60,7 +60,7 @@ class UploadFileController extends Controller
 
     public function delete(Document $document)
     {
-        if (!\Auth::check()) {
+        if (!Auth::check()) {
             return 'Vous n\'êtes pas connecté, action impossible';
         }
 
