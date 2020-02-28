@@ -65,6 +65,10 @@ class MessageController extends Controller
             UploadFileController::uploadFiles($message);
         }
 
+        if (request()->name_event && request()->description_event && request()->date_event) {
+            EvenementController::store($message);
+        }
+
         return redirect("/message");
     }
 }
