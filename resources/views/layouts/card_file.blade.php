@@ -20,17 +20,10 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-<div id="app" v-cloak>
-    <v-app>
-        <!-- Navigation -->
-        <nav-component></nav-component>
-        <!-- Page content -->
-        <v-content fluid>
-            <v-container>
-                @yield('content')
-            </v-container>
-        </v-content>
-    </v-app>
-</div>
+    <div id="app">
+        <v-app>
+            @yield('body');
+        </v-app>
+    </div>
 </body>
 </html>
