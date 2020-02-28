@@ -40,3 +40,7 @@ Route::GET('/message/salon/{salon}', "MessageController@index_salon")->name("mes
 
 // Evenement routes
 Route::GET('/evenement', 'EvenementController@index');
+
+Route::GET('/messagerie',function(){
+    return view('messagerie');
+});
