@@ -1,11 +1,8 @@
 <?php
 
-use App\Http\Controllers\DocumentController;
-use Illuminate\Http\Request;
-
-use \App\Message;
 use \App\Http\Controllers\MessageController;
 use App\Http\Controllers\SalonController;
+use App\Http\Controllers\DocumentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +15,9 @@ use App\Http\Controllers\SalonController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 // Route API message
 Route::get('message', function () {

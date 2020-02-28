@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -46,8 +48,29 @@ class User extends Authenticatable
      */
     protected $dates = ['email_verified_at', 'birth_date', 'created_at', 'updated_at'];
 
-    public function rang(){
+    public function rang()
+    {
         return $this->hasOne('App\Rang');
     }
 
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array  $data
+     * @return \App\User
+     */
+    protected function create(array $data)
+    {
+        return User::forceCreate([
+            'name' => $data['name'],
+            'first_name' => $data['first_name'],
+            'email' => $data['email'],
+            'birth_date' => $data['birth_date'],
+            'address' => $data['address'],
+            'phone_number' => $data['phone_number'],
+            'password' => Hash::make($data['password']),
+            'api_token' => Str::random(80),
+            'rang_id' => $data['rang_id'],
+        ]);
+    }
 }

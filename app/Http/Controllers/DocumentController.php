@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Document;
-use Illuminate\Http\Request;
 
 class DocumentController extends Controller
 {
@@ -12,10 +11,12 @@ class DocumentController extends Controller
         return Document::get();
     }
 
-    public static function getAllDocumentsFromRoom($idSalon){
+    public static function getAllDocumentsFromRoom($idSalon)
+    {
         $messages = MessageController::getAllMessagesFromRoom($idSalon);
         $fichiers = array();
-        foreach($messages as $message){
+        foreach ($messages as $message) {
+            if (count($message->fichiers) <= 0) continue;
             array_push($fichiers, $message->fichiers);
         }
         return $fichiers;
