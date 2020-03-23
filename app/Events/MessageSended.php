@@ -16,8 +16,6 @@ class MessageSended implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $broadcastQueue = 'salons-queue';
-
     public Message $message;
     /**
      * Create a new event instance.
@@ -39,7 +37,15 @@ class MessageSended implements ShouldBroadcast
         return new PrivateChannel('salon.'.$this->message->salon_id);
     }
 
-    public function broadcastAs(){
-        return "MessageSended";
+    public function broadcastWith(){
+        $files = $this->message->files();
+        $events = $this->message->events();
+
+        return [
+            'id' => $this->message->salon_id,
+            'text' => $this->message->content,
+            'files' => $files,
+            'events' => $events
+        ];
     }
 }

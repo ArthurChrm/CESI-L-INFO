@@ -76,4 +76,12 @@ class Message extends Model
         return $this->hasOne('App\User');
     }
 
+    public function files(){
+        return $this->hasMany('App\Document');
+    }
+
+    public function events(){
+        return $this->hasMany('App\Event');
+    }
+
 }

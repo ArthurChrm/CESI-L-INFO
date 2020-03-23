@@ -52,9 +52,6 @@ class MessageController extends Controller
 
     public function store()
     {
-        if (!Auth::check()) {
-            return 'Vous n\'êtes pas connecté, action impossible';
-        }
         $message = new Message();
         $message->id_recipient = 1;
         $message->user_id = Auth::user()->id;
@@ -70,8 +67,9 @@ class MessageController extends Controller
             EvenementController::store($message);
         }
 
-        broadcast(new MessageSended($message));
+        //Send event for new message
+        event(new MessageSended($message));
 
-        return redirect("/message");
+        return 200;
     }
 }

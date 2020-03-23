@@ -13,7 +13,8 @@
             <v-text-field
                 outlined
                 clearable
-                hide-details>
+                hide-details
+                v-model="message">
 
             </v-text-field>
             <v-btn height="auto" class="m-0" v-on:click="sendMessage">
@@ -29,19 +30,26 @@
         props: ['salon_id'],
         data() {
             return {
-                message: 'test'
+                message: ''
             }
         },
         created() {
             Echo.private('salon.'+this.salon_id)
                 .listen('MessageSended', (e) => {
-                    console.log(e);
+                    //New messages
+                    console.log(e)
                 });
         },
         methods: {
             sendMessage(){
-                console.log('test');
-                axios.post('/message',this.message);
+                let sender = axios.post('/message',{
+                    Salon : this.salon_id,
+                    message : this.message
+                });
+
+                sender.then((e) => {
+                    //Check if failed or success
+                });
             }
         }
     }
