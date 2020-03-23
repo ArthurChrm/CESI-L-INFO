@@ -30,6 +30,10 @@ Route::get('documents/salon/{idSalon}', function ($idSalon) {
     return DocumentController::getAllDocumentsFromRoom($idSalon);
 });
 
+Route::get('document/download/{idDocument}', function($idDocument){
+    return DocumentController::downloadDocument(DocumentController::getDocumentFromId($idDocument));
+});
+
 // Route API salons
 Route::get('salons', function () {
     return SalonController::getAllRooms();

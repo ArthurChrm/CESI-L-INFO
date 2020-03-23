@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Document;
+use Response;
 
 class DocumentController extends Controller
 {
@@ -20,5 +21,15 @@ class DocumentController extends Controller
             array_push($fichiers, $message->fichiers);
         }
         return $fichiers;
+    }
+
+    public static function getDocumentFromId($idDocument){
+        $fichier = Document::findorfail($idDocument);
+        return $fichier;
+    }
+
+    public static function downloadDocument(Document $document){
+        $file_path = public_path($document->link);
+        return response()->download($file_path);
     }
 }
