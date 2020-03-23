@@ -161,9 +161,9 @@
             return {
                 user: {fullname:this.fullname, email:this.email, profile_img:'https://randomuser.me/api/portraits/women/75.jpg'},
                 primary_links: [
-                    {title: 'Discussions', icon: 'fa-comments',link:'#'},
-                    {title: 'Fichiers', icon: 'fa-file-alt',link:'#'},
-                    {title: 'Evenements', icon: 'fa-calendar-alt',link:'#'},
+                    {title: 'Discussions', icon: 'fa-comments',link:'http://cesi-l-info.test/message'},
+                    {title: 'Fichiers', icon: 'fa-file-alt',link:'http://cesi-l-info.test/files'},
+                    {title: 'Evenements', icon: 'fa-calendar-alt',link:'http://cesi-l-info.test/evenement'},
                 ],
                 secondary_links: [
                     {title: 'Profile', icon: 'fa-user-circle',link:'#'},

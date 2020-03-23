@@ -2286,15 +2286,15 @@ __webpack_require__.r(__webpack_exports__);
       primary_links: [{
         title: 'Discussions',
         icon: 'fa-comments',
-        link: '#'
+        link: 'http://cesi-l-info.test/message'
       }, {
         title: 'Fichiers',
         icon: 'fa-file-alt',
-        link: '#'
+        link: 'http://cesi-l-info.test/files'
       }, {
         title: 'Evenements',
         icon: 'fa-calendar-alt',
-        link: '#'
+        link: 'http://cesi-l-info.test/evenement'
       }],
       secondary_links: [{
         title: 'Profile',
