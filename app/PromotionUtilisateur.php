@@ -4,6 +4,24 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\PromotionUtilisateur
+ *
+ * @property int $user_id
+ * @property int $promotion_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Promotion $promotion
+ * @property-read \App\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\PromotionUtilisateur newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\PromotionUtilisateur newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\PromotionUtilisateur query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\PromotionUtilisateur whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\PromotionUtilisateur wherePromotionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\PromotionUtilisateur whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\PromotionUtilisateur whereUserId($value)
+ * @mixin \Eloquent
+ */
 class PromotionUtilisateur extends Model
 {
 

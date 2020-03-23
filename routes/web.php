@@ -38,9 +38,7 @@ Route::GET('/message', "MessageController@index")->name("message");
 Route::GET('/message/create', "MessageController@edit")->name("create_message");
 Route::GET('/message/salon/{salon}', "MessageController@index_salon")->name("message_salon");
 
+Route::GET('{salon}/messagerie',"MessagerieController@index");
+
 // Evenement routes
 Route::GET('/evenement', 'EvenementController@index');
-
-Route::GET('/messagerie',function(){
-    return view('messagerie');
-});
