@@ -8,7 +8,7 @@
             v-for="msg in messages"
             :key="msg.id">
             <!-- Message entrant -->
-            <v-row align="center" class="mb-3">
+            <v-row align="center" class="mb-3" v-if="msg.sender_id === user_id">
                 <v-col class="col-auto">
                     <v-avatar color="">
                         <v-icon>fa-user</v-icon>
@@ -36,10 +36,10 @@
             </v-row>
 
             <!-- Message sortant -->
-            <v-row align="center" class="mb-3">
+            <v-row align="center" class="mb-3" v-if="msg.sender_id !== user_id">
                 <v-spacer></v-spacer>
                 <v-card outlined>
-                    <v-card-text>Ceci est un message</v-card-text>
+                    <v-card-text>{{ msg.text }}</v-card-text>
                     <v-divider></v-divider>
                 </v-card>
                 <v-col class="col-auto">
@@ -69,7 +69,7 @@
 <script>
     export default {
         name: "MessagerieComponent",
-        props: ['salon_id'],
+        props: ['salon_id','user_id'],
         data() {
             return {
                 message: '',
@@ -80,7 +80,6 @@
             Echo.private('salon.'+this.salon_id)
                 .listen('MessageSended', (e) => {
                     //New messages
-                    console.log(e);
                     this.messages.push(e);
                 });
         },
@@ -90,6 +89,19 @@
                     Salon : this.salon_id,
                     message : this.message
                 });
+
+                let temp_message = {
+                    id : 50,
+                    sender_id: parseInt(this.user_id),
+                    room_id: parseInt(this.salon_id),
+                    text: this.message,
+                    date: Date.now(),
+                    file: {},
+                    events: {},
+                    loading: true
+                };
+                console.log(this.messages);
+                this.messages.push(temp_message);
 
                 sender.then((e) => {
                     //Check if failed or success
