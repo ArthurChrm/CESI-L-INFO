@@ -1,11 +1,12 @@
 <template>
     <v-card
-        height="100%"
+        min-height="100%"
         outlined
         width="100%">
 
         <v-card id="chatfield" class="pl-10 pt-10 pr-10">
-            <div v-for="msg in messages">
+            <v-spacer></v-spacer>
+            <div v-for="msg in messages.slice().reverse()">
                 <!-- Message entrant -->
                 <v-row align="center" class="mb-3" v-if="msg.sender_id !== user_id">
                     <v-col class="col-auto">
