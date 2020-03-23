@@ -4,50 +4,50 @@
         outlined
         width="100%">
 
-        <v-card id="chatfield" class="pl-10 pt-10 pr-10"
-            v-for="msg in messages"
-            :key="msg.id">
-            <!-- Message entrant -->
-            <v-row align="center" class="mb-3" v-if="msg.sender_id === user_id">
-                <v-col class="col-auto">
-                    <v-avatar color="">
-                        <v-icon>fa-user</v-icon>
-                    </v-avatar>
-                </v-col>
+        <v-card id="chatfield" class="pl-10 pt-10 pr-10">
+            <div v-for="msg in messages">
+                <!-- Message entrant -->
+                <v-row align="center" class="mb-3" v-if="msg.sender_id !== user_id">
+                    <v-col class="col-auto">
+                        <v-avatar color="">
+                            <v-icon>fa-user</v-icon>
+                        </v-avatar>
+                    </v-col>
 
-                <v-card outlined>
-                    <v-card-text>{{ msg.text }}</v-card-text>
-                    <v-divider></v-divider>
-                    <v-card-actions class="pl-5 pr-5 pt-5 pb-5" v-if="Object.keys(msg.files).length !== 0 || Object.keys(msg.events).length !== 0">
-                        <v-spacer></v-spacer>
-                        <v-badge content="2" overlap color="red" class="mr-3" v-if="Object.keys(msg.files).length !== 0">
-                            <v-btn icon>
-                                <v-icon>fa-file-alt</v-icon>
-                            </v-btn>
-                        </v-badge>
-                        <v-badge content="1" overlap color="red" v-if="Object.keys(msg.events).length !== 0">
-                            <v-btn icon>
-                                <v-icon>fa-calendar-alt</v-icon>
-                            </v-btn>
-                        </v-badge>
-                    </v-card-actions>
-                </v-card>
-                <v-spacer></v-spacer>
-            </v-row>
+                    <v-card outlined>
+                        <v-card-text>{{ msg.text }}</v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-actions class="pl-5 pr-5 pt-5 pb-5" v-if="Object.keys(msg.files).length !== 0 || Object.keys(msg.events).length !== 0">
+                            <v-spacer></v-spacer>
+                            <v-badge content="2" overlap color="red" class="mr-3" v-if="Object.keys(msg.files).length !== 0">
+                                <v-btn icon>
+                                    <v-icon>fa-file-alt</v-icon>
+                                </v-btn>
+                            </v-badge>
+                            <v-badge content="1" overlap color="red" v-if="Object.keys(msg.events).length !== 0">
+                                <v-btn icon>
+                                    <v-icon>fa-calendar-alt</v-icon>
+                                </v-btn>
+                            </v-badge>
+                        </v-card-actions>
+                    </v-card>
+                    <v-spacer></v-spacer>
+                </v-row>
 
-            <!-- Message sortant -->
-            <v-row align="center" class="mb-3" v-if="msg.sender_id !== user_id">
-                <v-spacer></v-spacer>
-                <v-card outlined>
-                    <v-card-text>{{ msg.text }}</v-card-text>
-                    <v-divider></v-divider>
-                </v-card>
-                <v-col class="col-auto">
-                    <v-avatar color="">
-                        <v-icon>fa-user</v-icon>
-                    </v-avatar>
-                </v-col>
-            </v-row>
+                <!-- Message sortant -->
+                <v-row align="center" class="mb-3" v-if="msg.sender_id === user_id">
+                    <v-spacer></v-spacer>
+                    <v-card outlined :loading="msg.loading">
+                        <v-card-text>{{ msg.text }}</v-card-text>
+                        <v-divider></v-divider>
+                    </v-card>
+                    <v-col class="col-auto">
+                        <v-avatar color="">
+                            <v-icon>fa-user</v-icon>
+                        </v-avatar>
+                    </v-col>
+                </v-row>
+            </div>
         </v-card>
 
         <!-- Message text field -->
@@ -69,7 +69,10 @@
 <script>
     export default {
         name: "MessagerieComponent",
-        props: ['salon_id','user_id'],
+        props:{
+            salon_id: Number,
+            user_id: Number
+        },
         data() {
             return {
                 message: '',
@@ -80,31 +83,40 @@
             Echo.private('salon.'+this.salon_id)
                 .listen('MessageSended', (e) => {
                     //New messages
+                    if(e.sender_id === this.user_id){
+                        this.messages = this.messages.filter(x => x.id !== -1);
+                    }
                     this.messages.push(e);
                 });
         },
         methods: {
             sendMessage(){
+                console.log(this.user_id);
                 let sender = axios.post('/message',{
                     Salon : this.salon_id,
                     message : this.message
                 });
 
                 let temp_message = {
-                    id : 50,
-                    sender_id: parseInt(this.user_id),
-                    room_id: parseInt(this.salon_id),
+                    id : -1,
+                    sender_id: this.user_id,
+                    room_id: this.salon_id,
                     text: this.message,
                     date: Date.now(),
                     file: {},
                     events: {},
                     loading: true
                 };
-                console.log(this.messages);
+
                 this.messages.push(temp_message);
 
                 sender.then((e) => {
-                    //Check if failed or success
+                    //Check if send failed or success
+                    if(e.status === 200){
+                        console.log("success");
+                    }else{
+                        console.log("fail");
+                    }
                 });
             }
         }
