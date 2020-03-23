@@ -6,7 +6,7 @@
 
         <v-card id="chatfield" class="pl-10 pt-10 pr-10">
             <v-spacer></v-spacer>
-            <div v-for="msg in messages.slice().reverse()">
+            <div v-for="msg in messages">
                 <!-- Message entrant -->
                 <v-row align="center" class="mb-3" v-if="msg.sender_id !== user_id">
                     <v-col class="col-auto">
@@ -80,7 +80,27 @@
                 messages: []
             }
         },
+        mounted() {
+
+        },
         created() {
+            //Get older messages from database
+            axios.get('/message/salon/'+this.salon_id)
+                .then((e) => {
+                    e.data.forEach((msg) => {
+                        this.messages.push({
+                            id : msg.id,
+                            sender_id: msg.id_recipient,
+                            room_id: msg.salon_id,
+                            text: msg.content,
+                            date: msg.created_at,
+                            file: msg.files,
+                            events: msg.events,
+                        });
+                    });
+                });
+
+            //Create listener for new messages
             Echo.private('salon.'+this.salon_id)
                 .listen('MessageSended', (e) => {
                     //New messages
@@ -92,7 +112,6 @@
         },
         methods: {
             sendMessage(){
-                console.log(this.user_id);
                 let sender = axios.post('/message',{
                     Salon : this.salon_id,
                     message : this.message
@@ -118,18 +137,18 @@
                     }else{
                         console.log("fail");
                     }
+                    this.scrollBottom();
                 });
+            },
+            scrollBottom(){
+                let container = this.$el.querySelector("#chatfield");
+                container.scrollTop = container.scrollHeight;
             }
         }
     }
 </script>
 
 <style scoped>
-    #chat{
-        position: absolute;
-        top: 0;
-    }
-
     #chatfield{
         position: absolute;
         top: 0;

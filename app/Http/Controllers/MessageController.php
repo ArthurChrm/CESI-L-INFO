@@ -17,10 +17,10 @@ class MessageController extends Controller
         $messages = Message::get();
         foreach ($messages as $msg) {
             $fichiers = Document::where('message_id', $msg->id)->get();
-            $msg->fichiers = $fichiers;
+            $msg->files = $fichiers;
 
             $evenements = \App\Event::where('message_id', $msg->id)->get();
-            $msg->evenements = $evenements;
+            $msg->events = $evenements;
         }
 
         return view("message", compact('messages'));
@@ -31,13 +31,13 @@ class MessageController extends Controller
         $messages = Message::where('salon_id', $salon)->get();
         foreach ($messages as $msg) {
             $fichiers = Document::where('message_id', $msg->id)->get();
-            $msg->fichiers = $fichiers;
+            $msg->files = $fichiers;
 
             $evenements = Event::where("message_id", $msg->id)->get();
-            $msg->evenements = $evenements;
+            $msg->events = $evenements;
         }
 
-        return view('message', compact('messages'));
+        return response()->json($messages);
     }
 
     public function edit()
