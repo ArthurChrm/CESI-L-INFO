@@ -32,7 +32,17 @@
 <div id="app" v-cloak>
     <v-app>
         <!-- Navigation -->
-        <nav-component></nav-component>
+        <nav-component 
+        @if (\Auth::check())
+            fullname={{\Auth::user()->name}}
+            email={{\Auth::user()->email}}
+        @else
+            fullname="Pas connecté"
+            email="Pas connecté"
+        @endif        
+        >
+        
+        </nav-component>
         <!-- Page content -->
         <v-content fluid>
             <v-container>

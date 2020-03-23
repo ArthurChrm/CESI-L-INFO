@@ -17,6 +17,7 @@ Auth::routes();
 Route::GET('/', function () {
     return view('welcome');
 })->name("login");
+
 Route::GET('/home', 'HomeController@index')->name('home');
 
 Route::get('/files', function () {

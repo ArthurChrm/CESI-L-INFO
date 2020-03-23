@@ -156,9 +156,10 @@
 <script>
     export default {
         name: "NavComponent",
+        props: ['fullname', 'email'],
         data() {
             return {
-                user: {fullname:'John Doe',email:'john.doe@gmail.com',profile_img:'https://randomuser.me/api/portraits/women/75.jpg'},
+                user: {fullname:this.fullname, email:this.email, profile_img:'https://randomuser.me/api/portraits/women/75.jpg'},
                 primary_links: [
                     {title: 'Discussions', icon: 'fa-comments',link:'#'},
                     {title: 'Fichiers', icon: 'fa-file-alt',link:'#'},

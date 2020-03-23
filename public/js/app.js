@@ -2275,11 +2275,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "NavComponent",
+  props: ['fullname', 'email'],
   data: function data() {
     return {
       user: {
-        fullname: 'John Doe',
-        email: 'john.doe@gmail.com',
+        fullname: this.fullname,
+        email: this.email,
         profile_img: 'https://randomuser.me/api/portraits/women/75.jpg'
       },
       primary_links: [{
@@ -92836,8 +92837,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\CESI-L-INFO\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\CESI-L-INFO\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\Cesi-l-info\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\Cesi-l-info\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
