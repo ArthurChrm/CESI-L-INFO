@@ -38394,11 +38394,11 @@ var render = function() {
     { staticClass: "mx-5", attrs: { "min-width": "20em" } },
     [
       _c("v-card-title", [
-        _vm._v("\r\n      " + _vm._s(_vm.TitleEvent) + "\r\n    ")
+        _vm._v("\n      " + _vm._s(_vm.TitleEvent) + "\n    ")
       ]),
       _vm._v(" "),
       _c("v-card-subtitle", [
-        _vm._v("\r\n      " + _vm._s(_vm.DateEvent) + "\r\n    ")
+        _vm._v("\n      " + _vm._s(_vm.DateEvent) + "\n    ")
       ]),
       _vm._v(" "),
       _c("v-spacer"),
@@ -38439,7 +38439,7 @@ var render = function() {
             _c("v-divider"),
             _vm._v(" "),
             _c("v-card-text", [
-              _vm._v("\r\n          " + _vm._s(_vm.DescEvent) + "\r\n        ")
+              _vm._v("\n          " + _vm._s(_vm.DescEvent) + "\n        ")
             ])
           ],
           1
@@ -92836,8 +92836,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\CESI-L-INFO\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\CESI-L-INFO\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/ekode/Documents/git/valet_sites/CESI-L-INFO/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/ekode/Documents/git/valet_sites/CESI-L-INFO/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
