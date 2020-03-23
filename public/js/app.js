@@ -2308,11 +2308,15 @@ __webpack_require__.r(__webpack_exports__);
       groups: [{
         name: 'Group 1',
         img: 'https://randomuser.me/api/portraits/women/75.jpg',
-        link: '#'
+        link: 'http://cesi-l-info.test/message/salon/1'
       }, {
         name: 'Group 2',
         img: 'https://randomuser.me/api/portraits/women/75.jpg',
-        link: '#'
+        link: 'http://cesi-l-info.test/message/salon/2'
+      }, {
+        name: 'Group 3',
+        img: 'https://randomuser.me/api/portraits/women/75.jpg',
+        link: 'http://cesi-l-info.test/message/salon/3'
       }],
       mini: true,
       drawer: true,
