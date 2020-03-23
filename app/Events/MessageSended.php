@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Message;
 use App\Salon;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -17,15 +18,15 @@ class MessageSended implements ShouldBroadcast
 
     public $broadcastQueue = 'salons-queue';
 
-    public int $salon_id;
+    public Message $message;
     /**
      * Create a new event instance.
      *
-     * @param Salon $salon
+     * @param Message $message
      */
-    public function __construct(int $salon_id)
+    public function __construct(Message $message)
     {
-        $this->salon_id = $salon_id;
+        $this->message = $message;
     }
 
     /**
@@ -35,6 +36,10 @@ class MessageSended implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('salon.'.$this->salon_id);
+        return new PrivateChannel('salon.'.$this->message->salon_id);
+    }
+
+    public function broadcastAs(){
+        return "MessageSended";
     }
 }

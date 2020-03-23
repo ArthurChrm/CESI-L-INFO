@@ -24,9 +24,9 @@ Route::get('/files', function () {
 });
 
 // Register routes
-Route::POST('/register', 'Auth\RegisterController@create');
+//Route::POST('/register', 'Auth\RegisterController@create');
 Route::GET('/register', function () {
-    return view('Register');
+    return view('register');
 });
 
 // Login routes

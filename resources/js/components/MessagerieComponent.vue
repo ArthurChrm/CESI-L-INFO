@@ -16,7 +16,7 @@
                 hide-details>
 
             </v-text-field>
-            <v-btn height="auto" class="m-0">
+            <v-btn height="auto" class="m-0" v-on:click="sendMessage">
                 <v-icon>fa-paper-plane</v-icon>
             </v-btn>
         </v-row>
@@ -26,17 +26,23 @@
 <script>
     export default {
         name: "MessagerieComponent",
-        props: ['salon'],
+        props: ['salon_id'],
         data() {
             return {
-                message: ''
+                message: 'test'
             }
         },
         created() {
-            Echo.channel('salon.'+this.salon.id)
+            Echo.private('salon.'+this.salon_id)
                 .listen('MessageSended', (e) => {
                     console.log(e);
                 });
+        },
+        methods: {
+            sendMessage(){
+                console.log('test');
+                axios.post('/message',this.message);
+            }
         }
     }
 </script>

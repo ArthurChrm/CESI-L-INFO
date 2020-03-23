@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSended;
 use App\Message;
 use App\Event;
 use App\Document;
@@ -68,6 +69,8 @@ class MessageController extends Controller
         if (request()->name_event && request()->description_event && request()->date_event) {
             EvenementController::store($message);
         }
+
+        broadcast(new MessageSended($message));
 
         return redirect("/message");
     }

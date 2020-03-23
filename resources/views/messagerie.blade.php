@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('body')
-    <messagerie-component salon_id="{{$salon}}"></messagerie-component>
+    <messagerie-component salon_id="{{$salon->id}}"></messagerie-component>
 @endsection
