@@ -3,7 +3,7 @@
 
 @section('body')
 {{-- The layout of the trombinoscope --}}
-<div max-width="100%"  max-height="100%">
+<div >
     {{-- The container with contains row --}}
     <v-container  class="grey lighten-5">
         {{-- Row with 4 cols --}}
@@ -12,8 +12,6 @@
             @foreach($users as $user)
             {{-- Foreach we create a col containing the cards (image name and firstname) --}}
             <v-col
-            cols="4"
-            sm="2"
             >
                 {{-- Load the vue component with user's name, firstname --}}
                 <trombi-component

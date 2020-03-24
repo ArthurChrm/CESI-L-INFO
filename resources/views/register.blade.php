@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('body')
+@if(\Auth::check())
+    <p>Déconnectez-vous pour créer un compte</p>
+@else
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -136,4 +139,5 @@
         </div>
     </div>
 </div>
+@endif
 @endsection
