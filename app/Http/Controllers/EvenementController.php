@@ -16,19 +16,21 @@ class EvenementController extends Controller
 
     public static function getAllEventsFromRoom($idSalon)
     {
-        $messages = MessageController::getAllMessagesFromRoom($idSalon);
-        $evenements = array();
-        foreach ($messages as $message) {
-            if (count($message->evenements) <= 0) continue;
-            array_push($evenements, $message->evenements);
-        }
-        return $evenements;
+        return \DB::table('events')
+        ->join('messages', 'messages.id', '=', 'events.message_id')
+        ->where('messages.salon_id', $idSalon)
+        ->get();
     }
 
     public function index()
     {
         $evenements = $this::getAllEvents();
+        return view('evenement', compact('evenements'));
+    }
 
+    public function index_salon($idSalon)
+    {
+        $evenements = $this::getAllEventsFromRoom($idSalon);
         return view('evenement', compact('evenements'));
     }
 
