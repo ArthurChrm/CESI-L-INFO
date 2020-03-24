@@ -161,18 +161,18 @@
             return {
                 user: {fullname:this.fullname, email:this.email, profile_img:'https://randomuser.me/api/portraits/women/75.jpg'},
                 primary_links: [
-                    {title: 'Discussions', icon: 'fa-comments',link:'http://cesi-l-info.test/message'},
-                    {title: 'Fichiers', icon: 'fa-file-alt',link:'http://cesi-l-info.test/files'},
-                    {title: 'Evenements', icon: 'fa-calendar-alt',link:'http://cesi-l-info.test/evenement'},
+                    {title: 'Discussions', icon: 'fa-comments',link:'/message'},
+                    {title: 'Fichiers', icon: 'fa-file-alt',link:'/files'},
+                    {title: 'Evenements', icon: 'fa-calendar-alt',link:'/evenement'},
                 ],
                 secondary_links: [
                     {title: 'Profile', icon: 'fa-user-circle',link:'#'},
                     {title: 'Se déconnecter', icon: 'fa-sign-out-alt',link:'#'},
                 ],
                 groups: [
-                    {name: 'Group 1',img: 'https://randomuser.me/api/portraits/women/75.jpg',link:'http://cesi-l-info.test/message/salon/1'},
-                    {name: 'Group 2',img: 'https://randomuser.me/api/portraits/women/75.jpg',link:'http://cesi-l-info.test/message/salon/2'},
-                    {name: 'Group 3',img: 'https://randomuser.me/api/portraits/women/75.jpg',link:'http://cesi-l-info.test/message/salon/3'}
+                    {name: 'Group 1',img: 'https://randomuser.me/api/portraits/women/75.jpg',link:'/message/salon/1'},
+                    {name: 'Group 2',img: 'https://randomuser.me/api/portraits/women/75.jpg',link:'/message/salon/2'},
+                    {name: 'Group 3',img: 'https://randomuser.me/api/portraits/women/75.jpg',link:'/message/salon/3'}
                 ],
                 mini: true,
                 drawer: true,
