@@ -33,8 +33,7 @@ Route::GET('/register', function () {
 Route::GET('/login', 'Auth\LoginController@index')->name('login');
 
 // Message routes
-Route::POST("/message", "MessageController@store")
-    ->name("store_message");
+Route::POST("/message", "MessageController@store")->name("store_message");
 Route::GET('/message', "MessageController@index")->name("message");
 Route::GET('/message/create', "MessageController@edit")->name("create_message");
 Route::GET('/message/salon/{salon}', "MessageController@index_salon")->name("message_salon");

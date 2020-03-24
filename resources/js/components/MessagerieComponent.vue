@@ -4,6 +4,7 @@
         outlined
         width="100%">
         <v-card id="chatfield" class="pl-10 pt-10 pr-10">
+            <!-- Load older messages -->
             <div align="center">
                 <v-tooltip bottom>
                     <template v-slot:activator="{on}">
@@ -17,10 +18,11 @@
                     </template>
                     <span>Charger les anciens messages</span>
                 </v-tooltip>
-
             </div>
+
+            <!-- Message list -->
             <div v-for="msg in messages" v-scroll:#chatfield="onScroll">
-                <!-- Message entrant -->
+                <!-- Message from another user -->
                 <v-row align="center" class="mb-3" v-if="msg.id_recipient !== user_id">
                     <v-col class="col-auto">
                         <v-avatar color="">
@@ -48,7 +50,7 @@
                     <v-spacer></v-spacer>
                 </v-row>
 
-                <!-- Message sortant -->
+                <!-- Message from current auth user -->
                 <v-row align="center" class="mb-3" v-if="msg.id_recipient === user_id">
                     <v-spacer></v-spacer>
                     <v-card outlined :loading="msg.loading">
@@ -91,15 +93,12 @@
         },
         data() {
             return {
-                message: '',
-                messages: [],
-                offsetTop: 0,
-                currentPage: -1,
+                message: '', //Text field message
+                messages: [], //Array with all the chat messages
+                offsetTop: 0, //Scroll y
+                currentPage: -1, //Current database page
                 loadOldBtnLoading: false
             }
-        },
-        mounted() {
-
         },
         created() {
             //Search page count for loading older messages
@@ -116,7 +115,6 @@
             Echo.private('salon.'+this.salon_id)
                 .listen('MessageSended', (e) => {
                     //New messages
-                    console.log(e);
                     if(e.id_recipient === this.user_id){
                         this.messages = this.messages.filter(x => x.id !== -1);
                     }
@@ -126,10 +124,12 @@
         methods: {
             onScroll(e){
                 this.offsetTop = e.target.scrollTop;
+                console.log(this.offsetTop);
             },
             loadOlderMessage(initial_load){ //Get older messages from database
-                if(!initial_load) this.loadOldBtnLoading = true;
+                if(!initial_load) this.loadOldBtnLoading = true; //Start button loading
                 let older_messages = [];
+                //Query messages from this room
                 axios.get('/message/salon/'+this.salon_id,{
                     params: {
                         paginate: true,
@@ -137,6 +137,7 @@
                     }
                 })
                     .then((e) => {
+                        //Push messages to the main array
                         e.data.data.forEach((msg) => {
                             if(initial_load){
                                 this.messages.push(msg);
@@ -144,6 +145,7 @@
                                 older_messages.push(msg);
                             }
                         });
+
                         //Reverse and add older message into main array
                         older_messages.reverse();
                         older_messages.forEach((msg) => {
@@ -155,11 +157,13 @@
                 this.currentPage--;
             },
             sendMessage(){
+                //Send text message to message api
                 let sender = axios.post('/message',{
                     Salon : this.salon_id,
                     message : this.message
                 });
 
+                //Create a fake message to wait for message to be processed
                 let temp_message = {
                     id : -1,
                     id_recipient: this.user_id,
@@ -170,11 +174,10 @@
                     events: {},
                     loading: true
                 };
-
                 this.messages.push(temp_message);
+                this.message = ""; //Clear text field
 
-                this.message = "";
-
+                //Check of sending status
                 sender.then((e) => {
                     //Check if send failed or success
                     if(e.status === 200){
@@ -184,6 +187,7 @@
                         //Show error and ask for resend
                         console.log("fail");
                     }
+                    //Scroll to bottom to show the new message
                     this.scrollBottom();
                 });
             },
