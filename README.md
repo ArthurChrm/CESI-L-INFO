@@ -23,5 +23,9 @@ La procédure de mise en place est disponible sur le [Wiki de ce dépôt](https:
 # Parties du projet non terminées
 * Trombinoscope : Ajouter l'image du profil de l'utilisateur que l'on récupérerait grâce à un emplacement dans la base de données, également un lien vers la page membre de l'utilisateur pour avoir plus d'informations le concernant.
 
+* Fichier : Voir les fichiers partagés dans un salon en particulier
+
+
+
 
 
