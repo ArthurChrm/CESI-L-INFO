@@ -15,17 +15,16 @@
 
             <v-spacer></v-spacer>
 
-            <v-btn-toggle
+            <div
                 v-for="item in primary_links"
                 :key="item.title"
-                :href="item.link"
-                mandatory
+                v-on:click="goToTab(item.id)"
             >
                 <v-btn>
                     <v-icon>{{ item.icon }}</v-icon>
                 </v-btn>
-            </v-btn-toggle>
-            
+            </div>
+
             <v-menu :close-on-content-click="false" offset-y>
                 <template v-slot:activator="{ on }">
                     <v-btn
@@ -92,7 +91,7 @@
                         <v-list-item
                             v-for="item in primary_links"
                             :key="item.title"
-                            :href="item.link"
+                            v-on:click="goToTab(item.id)"
                         >
                             <v-list-item-action>
                                 <v-icon>{{ item.icon }}</v-icon>
@@ -116,6 +115,15 @@
                                 <v-list-item-title>{{ item.title }}</v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
+                        <v-list-item v-on:click="logout">
+                            <v-list-item-action>
+                                <v-icon>{{ logout_link.icon }}</v-icon>
+                            </v-list-item-action>
+
+                            <v-list-item-content>
+                                <v-list-item-title>{{ logout_link.title }}</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
                     </v-list>
                 </v-navigation-drawer>
                 <v-list class="grow p-0">
@@ -129,17 +137,46 @@
                             v-model="searchQuery"
                             placeholder="Rechercher un groupe"
                         ></v-text-field>
-                        <v-btn icon>
-                            <v-icon>fa-plus</v-icon>
-                        </v-btn>
+                        <!-- Group creation dialog -->
+                        <v-row justify="center">
+                            <v-dialog v-model="group_dialog" persistent max-width="500">
+                                <template v-slot:activator="{ on }">
+                                    <v-btn icon v-on="on">
+                                        <v-icon>fa-plus</v-icon>
+                                    </v-btn>
+                                </template>
+                                <v-card>
+                                    <v-card-title class="headline">Création d'un nouveau salon</v-card-title>
+                                    <v-card-text>
+                                        <v-form>
+                                            <v-text-field
+                                                outlined
+                                                v-model="new_group_name"
+                                                label="Nom du salon"
+                                                required
+                                            ></v-text-field>
+                                            <v-btn
+                                                color="success"
+                                                v-on:click="createSalon">
+                                                Créer
+                                            </v-btn>
+                                        </v-form>
+                                    </v-card-text>
+                                    <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn color="red darken-1" text @click="group_dialog = false">Annuler</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
+                        </v-row>
                     </v-toolbar>
                     <v-divider></v-divider>
                     <v-subheader>Groupes</v-subheader>
                     <v-list-item
                         v-for="group in resultQuery"
                         :key="group.name"
-                        :href="group.link"
-                        link
+                        v-on:click="goToRoom(group.id)"
+                        active
                     >
                         <v-list-item-avatar>
                             <v-img :src="group.img"></v-img>
@@ -161,24 +198,24 @@
             return {
                 user: {fullname:this.fullname, email:this.email, profile_img:'https://randomuser.me/api/portraits/women/75.jpg'},
                 primary_links: [
-                    {title: 'Discussions', icon: 'fa-comments',link:'/message'},
-                    {title: 'Fichiers', icon: 'fa-file-alt',link:'/files'},
-                    {title: 'Evenements', icon: 'fa-calendar-alt',link:'/evenement'},
+                    {id:1,title: 'Discussions', icon: 'fa-comments'},
+                    {id:2,title: 'Fichiers', icon: 'fa-file-alt'},
+                    {id:3,title: 'Evenements', icon: 'fa-calendar-alt'},
                 ],
                 secondary_links: [
-                    {title: 'Profile', icon: 'fa-user-circle',link:'#'},
-                    {title: 'Se déconnecter', icon: 'fa-sign-out-alt',link:'#'},
+                    {id:1,title: 'Profile', icon: 'fa-user-circle',link:'#'}
                 ],
-                groups: [
-                    {name: 'Group 1',img: 'https://randomuser.me/api/portraits/women/75.jpg',link:'/message/salon/1'},
-                    {name: 'Group 2',img: 'https://randomuser.me/api/portraits/women/75.jpg',link:'/message/salon/2'},
-                    {name: 'Group 3',img: 'https://randomuser.me/api/portraits/women/75.jpg',link:'/message/salon/3'}
-                ],
+                logout_link : {title: 'Se déconnecter', icon: 'fa-sign-out-alt',link:'#'},
+                groups: [],
                 mini: true,
                 drawer: true,
                 darkMode: false,
                 loading: true,
-                searchQuery: null //Result of search bar
+                searchQuery: null, //Result of search bar,
+                group_dialog: false,
+                new_group_name: "",
+                current_room: 1,
+                current_tab:1
             }
         },
         methods: {
@@ -189,9 +226,47 @@
             //Activate / Disable dark mode
             darkModeSwitch() {
                 this.$vuetify.theme.dark = this.darkMode;
+            },
+            createSalon(){
+                axios.post("/salon",{
+                    salon_name: this.new_group_name
+                }).then((e) => {
+                    this.loadSalons();
+                });
+            },
+            loadSalons(){
+                this.groups = [];
+                axios.get("/salon").then((e) => {
+                    e.data.forEach((salon) => {
+                        let new_salon = {id: salon.id ,name: salon.salon_name,img: 'https://randomuser.me/api/portraits/women/75.jpg'};
+                        this.groups.push(new_salon);
+                    });
+                });
+            },
+            goToRoom(id){
+                switch (this.current_tab) {
+                    case 1: window.location.href = "http://"+window.location.hostname+"/"+id+"/messagerie"; break;
+                    case 2: window.location.href = "http://"+window.location.hostname+"/files"; break;
+                    case 3: window.location.href = "http://"+window.location.hostname+"/"+id+"/evenements"; break;
+                }
+                this.current_room = id;
+            },
+            goToTab(id){
+                switch (id) {
+                    case 1: window.location.href = "http://"+window.location.hostname+"/"+this.current_room+"/messagerie"; break;
+                    case 2: window.location.href = "http://"+window.location.hostname+"/files"; break;
+                    case 3: window.location.href = "http://"+window.location.hostname+"/"+this.current_room+"/evenements"; break;
+                }
+                this.current_tab = id
+            },
+            logout(){
+                axios.post("/logout");
+                window.location.href = "http://"+window.location.hostname+"/login";
             }
         },
         mounted() {
+            this.loadSalons();
+
             document.onreadystatechange = () => {
                 if (document.readyState === "complete") {
                     if (this.drawer) {
