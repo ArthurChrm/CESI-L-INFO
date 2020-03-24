@@ -43,10 +43,10 @@ class MessageSended implements ShouldBroadcast
 
         return [
             'id' => $this->message->id,
-            'sender_id' => $this->message->id_recipient,
-            'room_id' => $this->message->salon_id,
-            'text' => $this->message->content,
-            'date' => $this->message->created_at,
+            'id_recipient' => $this->message->user_id,
+            'salon_id' => $this->message->salon_id,
+            'content' => $this->message->content,
+            'created_at' => $this->message->created_at,
             'files' => $files,
             'events' => $events,
         ];

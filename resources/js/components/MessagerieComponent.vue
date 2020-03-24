@@ -5,17 +5,23 @@
         width="100%">
         <v-card id="chatfield" class="pl-10 pt-10 pr-10">
             <div align="center">
-                <v-btn
-                    fab
-                    :loading="loadOldBtnLoading"
-                    v-on:click="loadOlderMessage(false)"
-                >
-                    <v-icon>fa-angle-double-up</v-icon>
-                </v-btn>
+                <v-tooltip bottom>
+                    <template v-slot:activator="{on}">
+                        <v-btn
+                            v-on="on"
+                            fab
+                            :loading="loadOldBtnLoading"
+                            v-on:click="loadOlderMessage(false)">
+                            <v-icon>fa-angle-double-up</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Charger les anciens messages</span>
+                </v-tooltip>
+
             </div>
             <div v-for="msg in messages" v-scroll:#chatfield="onScroll">
                 <!-- Message entrant -->
-                <v-row align="center" class="mb-3" v-if="msg.sender_id !== user_id">
+                <v-row align="center" class="mb-3" v-if="msg.id_recipient !== user_id">
                     <v-col class="col-auto">
                         <v-avatar color="">
                             <v-icon>fa-user</v-icon>
@@ -23,7 +29,7 @@
                     </v-col>
 
                     <v-card outlined>
-                        <v-card-text>{{ msg.text }}</v-card-text>
+                        <v-card-text>{{ msg.content }}</v-card-text>
                         <v-divider></v-divider>
                         <v-card-actions class="pl-5 pr-5 pt-5 pb-5" v-if="Object.keys(msg.files).length !== 0 || Object.keys(msg.events).length !== 0">
                             <v-spacer></v-spacer>
@@ -43,10 +49,10 @@
                 </v-row>
 
                 <!-- Message sortant -->
-                <v-row align="center" class="mb-3" v-if="msg.sender_id === user_id">
+                <v-row align="center" class="mb-3" v-if="msg.id_recipient === user_id">
                     <v-spacer></v-spacer>
                     <v-card outlined :loading="msg.loading">
-                        <v-card-text>{{ msg.text }}</v-card-text>
+                        <v-card-text>{{ msg.content }}</v-card-text>
                         <v-divider></v-divider>
                     </v-card>
                     <v-col class="col-auto">
@@ -65,8 +71,6 @@
                     outlined
                     clearable
                     hide-details
-                    counter
-                    counter-value="65000"
                     v-model="message"
                     v-on:keypress.enter="sendMessage">
 
@@ -112,7 +116,8 @@
             Echo.private('salon.'+this.salon_id)
                 .listen('MessageSended', (e) => {
                     //New messages
-                    if(e.sender_id === this.user_id){
+                    console.log(e);
+                    if(e.id_recipient === this.user_id){
                         this.messages = this.messages.filter(x => x.id !== -1);
                     }
                     this.messages.push(e);
@@ -133,19 +138,10 @@
                 })
                     .then((e) => {
                         e.data.data.forEach((msg) => {
-                            let older_array = {
-                                id : msg.id,
-                                sender_id: msg.id_recipient,
-                                room_id: msg.salon_id,
-                                text: msg.content,
-                                date: msg.created_at,
-                                file: msg.files,
-                                events: msg.events,
-                            };
                             if(initial_load){
-                                this.messages.push(older_array);
+                                this.messages.push(msg);
                             }else{
-                                older_messages.push(older_array);
+                                older_messages.push(msg);
                             }
                         });
                         //Reverse and add older message into main array
@@ -166,11 +162,11 @@
 
                 let temp_message = {
                     id : -1,
-                    sender_id: this.user_id,
-                    room_id: this.salon_id,
-                    text: this.message,
-                    date: Date.now(),
-                    file: {},
+                    id_recipient: this.user_id,
+                    salon_id: this.salon_id,
+                    content: this.message,
+                    created_at: Date.now(),
+                    files: {},
                     events: {},
                     loading: true
                 };
