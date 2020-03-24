@@ -17,6 +17,5 @@ Vue.use(Vuetify);
 const app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),
-    components: {NavComponent,CardFileComponent, CardEventComponent, CardProfileChangeComponent},
-    components: {NavComponent,CardFileComponent, CardEventComponent,MessagerieComponent,TrombiComponent}
+    components: {NavComponent,CardFileComponent, CardEventComponent, CardProfileChangeComponent, MessagerieComponent,TrombiComponent}
 });
