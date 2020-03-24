@@ -23,19 +23,22 @@ Route::GET('/home', 'HomeController@index')->name('home');
 Route::get('/files', "FileController@index")->name("all_files");
 
 // Register routes
-Route::POST('/register', 'Auth\RegisterController@create');
+//Route::POST('/register', 'Auth\RegisterController@create');
 Route::GET('/register', function () {
-    return view('Register');
+    return view('register');
 });
 
 // Login routes
-Route::GET('/login', 'Auth\LoginController@index');
+Route::GET('/login', 'Auth\LoginController@index')->name('login');
 
 // Message routes
 Route::POST("/message", "MessageController@store")->name("store_message");
 Route::GET('/message', "MessageController@index")->name("message");
 Route::GET('/message/create', "MessageController@edit")->name("create_message");
 Route::GET('/message/salon/{salon}', "MessageController@index_salon")->name("message_salon");
+
+Route::GET('{salon}/messagerie',"MessagerieController@index")
+    ->middleware('auth');
 
 // Evenement routes
 Route::GET('/evenement', 'EvenementController@index');

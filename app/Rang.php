@@ -4,6 +4,22 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Rang
+ *
+ * @property int $id
+ * @property string $rang_name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Rang newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Rang newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Rang query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Rang whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Rang whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Rang whereRangName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Rang whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Rang extends Model
 {
 

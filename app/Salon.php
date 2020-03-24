@@ -4,6 +4,22 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Salon
+ *
+ * @property int $id
+ * @property string $salon_name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Salon newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Salon newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Salon query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Salon whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Salon whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Salon whereSalonName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Salon whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Salon extends Model
 {
 

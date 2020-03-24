@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSended;
 use App\Message;
 use App\Event;
 use App\Document;
@@ -14,10 +15,10 @@ class MessageController extends Controller
         $messages = Message::get();
         foreach ($messages as $msg) {
             $fichiers = Document::where('message_id', $msg->id)->get();
-            $msg->fichiers = $fichiers;
+            $msg->files = $fichiers;
 
-            $evenements = Event::where('message_id', $msg->id)->get();
-            $msg->evenements = $evenements;
+            $evenements = \App\Event::where('message_id', $msg->id)->get();
+            $msg->events = $evenements;
         }
         return $messages;
     }
@@ -37,16 +38,28 @@ class MessageController extends Controller
 
     public function index_salon($salon)
     {
-        $messages = MessageController::getAllMessages()->where('salon_id', $salon);
-        foreach ($messages as $msg) {
-            $fichiers = Document::where('message_id', $msg->id)->get();
-            $msg->fichiers = $fichiers;
+        if(request()->has('paginate')){
+            $messages = Message::where('salon_id', $salon)->paginate(10);
+            foreach ($messages as $msg) {
+                $fichiers = Document::where('message_id', $msg->id)->get();
+                $msg->files = $fichiers;
 
-            $evenements = Event::where("message_id", $msg->id)->get();
-            $msg->evenements = $evenements;
+                $evenements = Event::where("message_id", $msg->id)->get();
+                $msg->events = $evenements;
+            }
+        }else{
+            $messages = Message::where('salon_id', $salon)->get();
+            foreach ($messages as $msg) {
+                $fichiers = Document::where('message_id', $msg->id)->get();
+                $msg->files = $fichiers;
+
+                $evenements = Event::where("message_id", $msg->id)->get();
+                $msg->events = $evenements;
+            }
         }
 
-        return view('message', compact('messages'));
+
+        return response()->json($messages);
     }
 
     public function edit()
@@ -61,9 +74,6 @@ class MessageController extends Controller
 
     public function store()
     {
-        if (!Auth::check()) {
-            return 'Vous n\'êtes pas connecté, action impossible';
-        }
         $message = new Message();
         $message->id_recipient = 1;
         $message->user_id = Auth::user()->id;
@@ -79,6 +89,9 @@ class MessageController extends Controller
             EvenementController::store($message);
         }
 
-        return redirect("/message");
+        //Send event for new message
+        event(new MessageSended($message));
+
+        return 200;
     }
 }

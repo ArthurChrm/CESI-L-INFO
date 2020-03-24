@@ -45,7 +45,7 @@
         </nav-component>
         <!-- Page content -->
         <v-content fluid>
-            <v-container>
+            <v-container class="fill-height">
                 @yield('body')
             </v-container>
         </v-content>
