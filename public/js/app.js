@@ -2006,6 +2006,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CardFileComponent",
@@ -2013,9 +2017,12 @@ __webpack_require__.r(__webpack_exports__);
     InfoFileComponent: _InfoFileComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {
-    id: Number,
+    id: String,
     nameFile: String,
-    typeFile: String
+    typeFile: String,
+    sizeFile: String,
+    dateFile: String,
+    transmitterFile: String
   }
 });
 
@@ -38497,9 +38504,9 @@ var render = function() {
               id: _vm.id,
               "name-file": _vm.nameFile,
               "type-file": _vm.typeFile,
-              "date-file": new Date(),
-              "size-file": "Taille " + _vm.id,
-              transmitter: "Personne " + _vm.id
+              "date-file": _vm.dateFile,
+              "size-file": _vm.sizeFile,
+              transmitter: _vm.transmitterFile
             }
           }),
           _vm._v(" "),

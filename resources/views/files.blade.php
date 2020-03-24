@@ -3,12 +3,18 @@
 @section('body')
     <div>
         <v-row>
-            @for ($i = 0; $i < 10; $i++)
+            @foreach($fichiers as $fichier)
                 <v-col>
-                    <card-file-component id="" name-file="" type-file="">
+                    <card-file-component 
+                    id={{$fichier->id}}
+                    name-file={{$fichier->link}}
+                    type-file="Type inconnu"
+                    size-file="Taille inconnue"
+                    date-file="{{$fichier->created_at}}"
+                    transmitter="test">
                     </card-file-component>
                 </v-col>
-            @endfor
+            @endforeach
         </v-row>
     </div>
 

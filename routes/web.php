@@ -20,9 +20,7 @@ Route::GET('/', function () {
 
 Route::GET('/home', 'HomeController@index')->name('home');
 
-Route::get('/files', function () {
-    return view('files');
-});
+Route::get('/files', "FileController@index")->name("all_files");
 
 // Register routes
 Route::POST('/register', 'Auth\RegisterController@create');
