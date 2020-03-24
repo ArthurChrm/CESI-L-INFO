@@ -3,10 +3,17 @@
         min-height="100%"
         outlined
         width="100%">
-
         <v-card id="chatfield" class="pl-10 pt-10 pr-10">
-            <v-spacer></v-spacer>
-            <div v-for="msg in messages">
+            <div align="center">
+                <v-btn
+                    fab
+                    :loading="loadOldBtnLoading"
+                    v-on:click="loadOlderMessage(false)"
+                >
+                    <v-icon>fa-angle-double-up</v-icon>
+                </v-btn>
+            </div>
+            <div v-for="msg in messages" v-scroll:#chatfield="onScroll">
                 <!-- Message entrant -->
                 <v-row align="center" class="mb-3" v-if="msg.sender_id !== user_id">
                     <v-col class="col-auto">
@@ -57,7 +64,8 @@
                     outlined
                     clearable
                     hide-details
-                    v-model="message">
+                    v-model="message"
+                    v-on:keypress.enter="sendMessage">
 
                 </v-text-field>
                 <v-btn height="auto" class="ml-1" v-on:click="sendMessage">
@@ -77,28 +85,25 @@
         data() {
             return {
                 message: '',
-                messages: []
+                messages: [],
+                offsetTop: 0,
+                currentPage: -1,
+                loadOldBtnLoading: false
             }
         },
         mounted() {
 
         },
         created() {
-            //Get older messages from database
-            axios.get('/message/salon/'+this.salon_id)
-                .then((e) => {
-                    e.data.forEach((msg) => {
-                        this.messages.push({
-                            id : msg.id,
-                            sender_id: msg.id_recipient,
-                            room_id: msg.salon_id,
-                            text: msg.content,
-                            date: msg.created_at,
-                            file: msg.files,
-                            events: msg.events,
-                        });
-                    });
-                });
+            //Search page count for loading older messages
+            axios.get('/message/salon/'+this.salon_id,{
+                params: {
+                    paginate: true
+                }
+            }).then((e) => {
+                this.currentPage = e.data.last_page;
+                this.loadOlderMessage(true);
+            });
 
             //Create listener for new messages
             Echo.private('salon.'+this.salon_id)
@@ -111,6 +116,45 @@
                 });
         },
         methods: {
+            onScroll(e){
+                this.offsetTop = e.target.scrollTop;
+            },
+            loadOlderMessage(initial_load){ //Get older messages from database
+                if(!initial_load) this.loadOldBtnLoading = true;
+                let older_messages = [];
+                axios.get('/message/salon/'+this.salon_id,{
+                    params: {
+                        paginate: true,
+                        page: this.currentPage
+                    }
+                })
+                    .then((e) => {
+                        e.data.data.forEach((msg) => {
+                            let older_array = {
+                                id : msg.id,
+                                sender_id: msg.id_recipient,
+                                room_id: msg.salon_id,
+                                text: msg.content,
+                                date: msg.created_at,
+                                file: msg.files,
+                                events: msg.events,
+                            };
+                            if(initial_load){
+                                this.messages.push(older_array);
+                            }else{
+                                older_messages.push(older_array);
+                            }
+                        });
+                        //Reverse and add older message into main array
+                        older_messages.reverse();
+                        older_messages.forEach((msg) => {
+                            //Add older messages at the start of the main array
+                            this.messages.unshift(msg);
+                        });
+                        if(!initial_load) this.loadOldBtnLoading = false;
+                    });
+                this.currentPage--;
+            },
             sendMessage(){
                 let sender = axios.post('/message',{
                     Salon : this.salon_id,
@@ -130,11 +174,15 @@
 
                 this.messages.push(temp_message);
 
+                this.message = "";
+
                 sender.then((e) => {
                     //Check if send failed or success
                     if(e.status === 200){
+                        //Do nothing
                         console.log("success");
                     }else{
+                        //Show error and ask for resend
                         console.log("fail");
                     }
                     this.scrollBottom();

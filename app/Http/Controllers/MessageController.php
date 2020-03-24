@@ -28,14 +28,26 @@ class MessageController extends Controller
 
     public function index_salon($salon)
     {
-        $messages = Message::where('salon_id', $salon)->get();
-        foreach ($messages as $msg) {
-            $fichiers = Document::where('message_id', $msg->id)->get();
-            $msg->files = $fichiers;
+        if(request()->has('paginate')){
+            $messages = Message::where('salon_id', $salon)->paginate(10);
+            foreach ($messages as $msg) {
+                $fichiers = Document::where('message_id', $msg->id)->get();
+                $msg->files = $fichiers;
 
-            $evenements = Event::where("message_id", $msg->id)->get();
-            $msg->events = $evenements;
+                $evenements = Event::where("message_id", $msg->id)->get();
+                $msg->events = $evenements;
+            }
+        }else{
+            $messages = Message::where('salon_id', $salon)->get();
+            foreach ($messages as $msg) {
+                $fichiers = Document::where('message_id', $msg->id)->get();
+                $msg->files = $fichiers;
+
+                $evenements = Event::where("message_id", $msg->id)->get();
+                $msg->events = $evenements;
+            }
         }
+
 
         return response()->json($messages);
     }

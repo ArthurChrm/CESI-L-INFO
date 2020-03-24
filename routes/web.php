@@ -30,7 +30,7 @@ Route::GET('/register', function () {
 });
 
 // Login routes
-Route::GET('/login', 'Auth\LoginController@index');
+Route::GET('/login', 'Auth\LoginController@index')->name('login');
 
 // Message routes
 Route::POST("/message", "MessageController@store")
@@ -39,7 +39,8 @@ Route::GET('/message', "MessageController@index")->name("message");
 Route::GET('/message/create', "MessageController@edit")->name("create_message");
 Route::GET('/message/salon/{salon}', "MessageController@index_salon")->name("message_salon");
 
-Route::GET('{salon}/messagerie',"MessagerieController@index");
+Route::GET('{salon}/messagerie',"MessagerieController@index")
+    ->middleware('auth');
 
 // Evenement routes
 Route::GET('/evenement', 'EvenementController@index');
