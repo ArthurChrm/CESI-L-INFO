@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app2')
 
 @section('body')
 <div class="container">
@@ -56,13 +56,13 @@
                             </div>
                         </div>
 
-                         <!-- birth_date  @lang('user.birth_date')--> 
+                         <!-- birth_date  @lang('user.birth_date')-->
                          <div class="form-group row">
                             <label for="birth_date" class="col-md-4 col-form-label text-md-right">{{ __('Date de naissance') }}</label>
 
                             <div class="col-md-6">
                                 <input id="birth_date" type="date" class="form-control @error('birth_date') is-invalid @enderror" name="birth_date" required autocomplete="birth_date">
-                                
+
                                 @error('birth_date')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -128,6 +128,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
+                                <a class="" href="{{route("login")}}">
+                                    {{ __('Go to Login') }}
+                                </a>
                             </div>
                         </div>
                     </form>

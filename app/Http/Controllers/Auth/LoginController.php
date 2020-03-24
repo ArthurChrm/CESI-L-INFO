@@ -26,7 +26,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/1/messagerie';
 
     /**
      * Create a new controller instance.
@@ -43,7 +43,7 @@ class LoginController extends Controller
         if (\Auth::check()) {
             return 'vous êtes déjà connecté';
         } else {
-            return view('login');
+            return route('/1/messagerie');
         }
     }
 }

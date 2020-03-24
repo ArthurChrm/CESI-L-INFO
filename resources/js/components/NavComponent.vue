@@ -15,16 +15,15 @@
 
             <v-spacer></v-spacer>
 
-            <v-btn-toggle
+            <div
                 v-for="item in primary_links"
                 :key="item.title"
-                :href="item.link"
-                mandatory
+                v-on:click="goToTab(item.id)"
             >
                 <v-btn>
                     <v-icon>{{ item.icon }}</v-icon>
                 </v-btn>
-            </v-btn-toggle>
+            </div>
 
             <v-menu :close-on-content-click="false" offset-y>
                 <template v-slot:activator="{ on }">
@@ -92,7 +91,7 @@
                         <v-list-item
                             v-for="item in primary_links"
                             :key="item.title"
-                            :href="item.link"
+                            v-on:click="goToTab(item.id)"
                         >
                             <v-list-item-action>
                                 <v-icon>{{ item.icon }}</v-icon>
@@ -114,6 +113,15 @@
 
                             <v-list-item-content>
                                 <v-list-item-title>{{ item.title }}</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item v-on:click="logout">
+                            <v-list-item-action>
+                                <v-icon>{{ logout_link.icon }}</v-icon>
+                            </v-list-item-action>
+
+                            <v-list-item-content>
+                                <v-list-item-title>{{ logout_link.title }}</v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
                     </v-list>
@@ -167,8 +175,8 @@
                     <v-list-item
                         v-for="group in resultQuery"
                         :key="group.name"
-                        :href="group.link"
-                        link
+                        v-on:click="goToRoom(group.id)"
+                        active
                     >
                         <v-list-item-avatar>
                             <v-img :src="group.img"></v-img>
@@ -190,14 +198,14 @@
             return {
                 user: {fullname:this.fullname, email:this.email, profile_img:'https://randomuser.me/api/portraits/women/75.jpg'},
                 primary_links: [
-                    {title: 'Discussions', icon: 'fa-comments',link:'http://cesi-l-info.test/message'},
-                    {title: 'Fichiers', icon: 'fa-file-alt',link:'http://cesi-l-info.test/files'},
-                    {title: 'Evenements', icon: 'fa-calendar-alt',link:'http://cesi-l-info.test/evenement'},
+                    {id:1,title: 'Discussions', icon: 'fa-comments'},
+                    {id:2,title: 'Fichiers', icon: 'fa-file-alt'},
+                    {id:3,title: 'Evenements', icon: 'fa-calendar-alt'},
                 ],
                 secondary_links: [
-                    {title: 'Profile', icon: 'fa-user-circle',link:'#'},
-                    {title: 'Se déconnecter', icon: 'fa-sign-out-alt',link:'#'},
+                    {id:1,title: 'Profile', icon: 'fa-user-circle',link:'#'}
                 ],
+                logout_link : {title: 'Se déconnecter', icon: 'fa-sign-out-alt',link:'#'},
                 groups: [],
                 mini: true,
                 drawer: true,
@@ -205,7 +213,9 @@
                 loading: true,
                 searchQuery: null, //Result of search bar,
                 group_dialog: false,
-                new_group_name: ""
+                new_group_name: "",
+                current_room: 1,
+                current_tab:1
             }
         },
         methods: {
@@ -228,14 +238,35 @@
                 this.groups = [];
                 axios.get("/salon").then((e) => {
                     e.data.forEach((salon) => {
-                        let new_salon = {id: salon.id ,name: salon.salon_name,img: 'https://randomuser.me/api/portraits/women/75.jpg',link:'http://cesi-l-info.test/message/salon/'+salon.id}
+                        let new_salon = {id: salon.id ,name: salon.salon_name,img: 'https://randomuser.me/api/portraits/women/75.jpg'};
                         this.groups.push(new_salon);
                     });
                 });
+            },
+            goToRoom(id){
+                switch (this.current_tab) {
+                    case 1: window.location.href = "http://"+window.location.hostname+"/"+id+"/messagerie"; break;
+                    case 2: window.location.href = "http://"+window.location.hostname+"/files"; break;
+                    case 3: window.location.href = "http://"+window.location.hostname+"/"+id+"/evenements"; break;
+                }
+                this.current_room = id;
+            },
+            goToTab(id){
+                switch (id) {
+                    case 1: window.location.href = "http://"+window.location.hostname+"/"+this.current_room+"/messagerie"; break;
+                    case 2: window.location.href = "http://"+window.location.hostname+"/files"; break;
+                    case 3: window.location.href = "http://"+window.location.hostname+"/"+this.current_room+"/evenements"; break;
+                }
+                this.current_tab = id
+            },
+            logout(){
+                axios.post("/logout");
+                window.location.href = "http://"+window.location.hostname+"/login";
             }
         },
         mounted() {
             this.loadSalons();
+
             document.onreadystatechange = () => {
                 if (document.readyState === "complete") {
                     if (this.drawer) {

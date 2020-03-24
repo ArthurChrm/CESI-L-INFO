@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app2')
 
 @section('body')
 <div class="container">
@@ -62,6 +62,9 @@
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
+                                <a class="" href="{{route("register")}}">
+                                    {{ __('Go to Register') }}
+                                </a>
                             </div>
                         </div>
                     </form>
