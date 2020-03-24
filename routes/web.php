@@ -37,9 +37,16 @@ Route::GET('/message', "MessageController@index")->name("message");
 Route::GET('/message/create', "MessageController@edit")->name("create_message");
 Route::GET('/message/salon/{salon}', "MessageController@index_salon")->name("message_salon");
 
-Route::GET('{salon}/messagerie',"MessagerieController@index")
+Route::GET('{salon}/messagerie', "MessagerieController@index")
     ->middleware('auth');
 
 // Evenement routes
 Route::GET('/evenement', 'EvenementController@index');
 Route::GET('/evenement/salon/{salon}', 'EvenementController@index_salon');
+
+// Trombi routes
+Route::GET('/trombinoscope', function () {
+    return view('trombinoscope', [
+        'users' => App\User::latest()->get()
+    ]);
+});
