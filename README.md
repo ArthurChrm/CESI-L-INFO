@@ -21,4 +21,4 @@ La procédure de mise en place est disponible sur le [Wiki de ce dépôt](https:
 * Alexis POUPELIN
 
 # Parties du projet non terminées
-*TODO
+* TODO
