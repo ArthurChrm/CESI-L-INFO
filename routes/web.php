@@ -22,7 +22,7 @@ Route::GET('/register', function () {
     return view('register');
 })->name('register');
 
-Route::GET('/home', 'HomeController@index')->name('home');
+Route::GET('/home', 'HomeController@index')->name('home')->middleware('auth');
 Route::get('/files', "FileController@index")->name("all_files");
 
 
