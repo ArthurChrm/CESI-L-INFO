@@ -61,9 +61,12 @@
         <!-- Message text field -->
         <v-row class="pl-3 pr-3" id="textfield">
                 <v-text-field
+                    prepend-inner-icon="fa-plus-circle"
                     outlined
                     clearable
                     hide-details
+                    counter
+                    counter-value="65000"
                     v-model="message"
                     v-on:keypress.enter="sendMessage">
 
