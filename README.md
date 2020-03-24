@@ -23,7 +23,17 @@ La procédure de mise en place est disponible sur le [Wiki de ce dépôt](https:
 # Parties du projet non terminées
 * Trombinoscope : Ajouter l'image du profil de l'utilisateur que l'on récupérerait grâce à un emplacement dans la base de données, également un lien vers la page membre de l'utilisateur pour avoir plus d'informations le concernant.
 
-* Fichier : Voir les fichiers partagés dans un salon en particulier
+* Fichier : Voir les fichiers partagés dans un salon en particulier, télécharger un fichier lors du click sur "télécharger"
+
+* Profil : Mise à jour des information d'une personne à partir de son profil
+
+* Utilisateur : Ajout d'une image de profil lors de la création du compte
+
+* Groupe : Ajouter des personnes à un groupe
+
+* Message : Ajouter des fichiers et évènements dans un message
+
+
 
 
 
