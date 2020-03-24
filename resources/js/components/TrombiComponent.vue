@@ -1,20 +1,27 @@
 <template>
-  <v-card class="mx-auto">
+  <!-- It's a container card which contains Firstname and NAME; the user image with link to database remains in TODO -->
+  <v-card class="pa-2" height="auto" width="auto">
     <!-- Image user TODO:
-    ajout du lien vers la photo user
+    src = require(@/public/storage/user.jpg)
+    which should be register by src=""
     -->
-    <v-img class="white--text align-end" height="200" width="200" src="https://cdn.vuetifyjs.com/images/cards/store.jpg"></v-img>
-    <!-- Info user -->
-    <v-card-title> {{ First }} {{ Name }}  </v-card-title>
+    <v-img src="http://icon-library.com/images/unknown-person-icon/unknown-person-icon-16.jpg"></v-img>
+    <v-card-subtitle class="text-center">
+      {{ First }}
+      <div class="text-uppercase">{{ Name }}</div>
+    </v-card-subtitle>
 
-    <v-card-text class="text--primary">
-      <div>{{ Address }}</div>
-      <div>{{ Telephone }}</div>
-    </v-card-text>
+    <!-- Info user which can be added : phone number or the company of the user -->
+    <!-- <v-card-text class="text--primary">
+          <div>{{ Address }}</div>
+          <div>{{ Telephone }}</div>
+    </v-card-text>-->
   </v-card>
 </template>
 
 <script>
+// We retrieve user's information (name & firstname)
+// TODO : Add a link to get image from users in database and add it to the props
 export default {
   name: "TrombiComponent",
   props: {
