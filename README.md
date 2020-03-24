@@ -19,3 +19,6 @@ La procédure de mise en place est disponible sur le [Wiki de ce dépôt](https:
 * Antoine CORGNIARD
 * Arthur CHERAMY
 * Alexis POUPELIN
+
+# Parties du projet non terminées
+*TODO
