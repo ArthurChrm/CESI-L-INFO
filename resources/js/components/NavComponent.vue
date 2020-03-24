@@ -25,7 +25,7 @@
                     <v-icon>{{ item.icon }}</v-icon>
                 </v-btn>
             </v-btn-toggle>
-            
+
             <v-menu :close-on-content-click="false" offset-y>
                 <template v-slot:activator="{ on }">
                     <v-btn
@@ -129,9 +129,38 @@
                             v-model="searchQuery"
                             placeholder="Rechercher un groupe"
                         ></v-text-field>
-                        <v-btn icon>
-                            <v-icon>fa-plus</v-icon>
-                        </v-btn>
+                        <!-- Group creation dialog -->
+                        <v-row justify="center">
+                            <v-dialog v-model="group_dialog" persistent max-width="500">
+                                <template v-slot:activator="{ on }">
+                                    <v-btn icon v-on="on">
+                                        <v-icon>fa-plus</v-icon>
+                                    </v-btn>
+                                </template>
+                                <v-card>
+                                    <v-card-title class="headline">Création d'un nouveau salon</v-card-title>
+                                    <v-card-text>
+                                        <v-form>
+                                            <v-text-field
+                                                outlined
+                                                v-model="new_group_name"
+                                                label="Nom du salon"
+                                                required
+                                            ></v-text-field>
+                                            <v-btn
+                                                color="success"
+                                                v-on:click="createSalon">
+                                                Créer
+                                            </v-btn>
+                                        </v-form>
+                                    </v-card-text>
+                                    <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn color="red darken-1" text @click="group_dialog = false">Annuler</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
+                        </v-row>
                     </v-toolbar>
                     <v-divider></v-divider>
                     <v-subheader>Groupes</v-subheader>
@@ -169,16 +198,14 @@
                     {title: 'Profile', icon: 'fa-user-circle',link:'#'},
                     {title: 'Se déconnecter', icon: 'fa-sign-out-alt',link:'#'},
                 ],
-                groups: [
-                    {name: 'Group 1',img: 'https://randomuser.me/api/portraits/women/75.jpg',link:'http://cesi-l-info.test/message/salon/1'},
-                    {name: 'Group 2',img: 'https://randomuser.me/api/portraits/women/75.jpg',link:'http://cesi-l-info.test/message/salon/2'},
-                    {name: 'Group 3',img: 'https://randomuser.me/api/portraits/women/75.jpg',link:'http://cesi-l-info.test/message/salon/3'}
-                ],
+                groups: [],
                 mini: true,
                 drawer: true,
                 darkMode: false,
                 loading: true,
-                searchQuery: null //Result of search bar
+                searchQuery: null, //Result of search bar,
+                group_dialog: false,
+                new_group_name: ""
             }
         },
         methods: {
@@ -189,9 +216,26 @@
             //Activate / Disable dark mode
             darkModeSwitch() {
                 this.$vuetify.theme.dark = this.darkMode;
+            },
+            createSalon(){
+                axios.post("/salon",{
+                    salon_name: this.new_group_name
+                }).then((e) => {
+                    this.loadSalons();
+                });
+            },
+            loadSalons(){
+                this.groups = [];
+                axios.get("/salon").then((e) => {
+                    e.data.forEach((salon) => {
+                        let new_salon = {id: salon.id ,name: salon.salon_name,img: 'https://randomuser.me/api/portraits/women/75.jpg',link:'http://cesi-l-info.test/message/salon/'+salon.id}
+                        this.groups.push(new_salon);
+                    });
+                });
             }
         },
         mounted() {
+            this.loadSalons();
             document.onreadystatechange = () => {
                 if (document.readyState === "complete") {
                     if (this.drawer) {

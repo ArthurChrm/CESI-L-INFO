@@ -45,6 +45,10 @@ Route::GET('/message/salon/{salon}', "MessageController@index_salon")->name("mes
 Route::GET('{salon}/messagerie', "MessagerieController@index")
     ->middleware('auth');
 
+Route::POST("/salon","SalonController@store")->middleware('auth');
+Route::GET("/salon","SalonController@index");
+Route::DELETE("/salon/{id}","SalonController@delete")->middleware('auth');
+
 // Evenement routes
 Route::GET('/evenement', 'EvenementController@index');
 Route::GET('/evenement/salon/{salon}', 'EvenementController@index_salon');
