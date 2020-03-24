@@ -116,16 +116,7 @@ fabric.properties
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
-.idea/php.xml
 
-.idea/modules.xml
-
-.idea/laravel-plugin.xml
-
-.idea/commandlinetools/Tool_based_on_Symfony_Console_26_02_2020_11_04_artisan.xml
-
-.idea/CESI-L-INFO.iml
-
-.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd
-
-.idea/misc.xml
+public/fonts/vendor/
+uploads
+public/js/app.js
